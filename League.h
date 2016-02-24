@@ -1,3 +1,6 @@
+#ifndef LEAGUE_H_
+#define LEAGUE_H_
+
 #include <vector>
 #include "Team.h"
 using namespace std;
@@ -15,3 +18,4 @@ class League {
   private:
     vector<Team*> teams;
 }
+#endif
