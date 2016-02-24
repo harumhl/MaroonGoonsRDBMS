@@ -6,7 +6,7 @@ class League {
   public:
     League() {}
     
-    void setTeam (vector<Team*> ts) { teams = ts; }
+    void setTeams (vector<Team*> ts) { teams = ts; }
     vector<Team*> getTeams() { return teams; }
     Team* getTeam(int i) { return teams.at(i); }
     
