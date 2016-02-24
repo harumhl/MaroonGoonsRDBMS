@@ -1,3 +1,6 @@
+#ifndef TEAM_H_
+#define TEAM_H_
+
 #include <vector>
 #include "Player.h"
 using namespace std;
@@ -17,3 +20,4 @@ class Team {
     int rank;
     // team's wins and losses
 }
+#endif
