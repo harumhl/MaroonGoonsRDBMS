@@ -2,10 +2,11 @@
 #define TEAM_H_
 
 #include <vector>
+#include "Application.h"
 #include "Player.h"
 using namespace std;
 
-class Team {
+class Team : public Application {
   public:
     Team() {}
     
@@ -19,5 +20,5 @@ class Team {
     vector<Player*> players;
     int rank;
     // team's wins and losses
-}
+};
 #endif
