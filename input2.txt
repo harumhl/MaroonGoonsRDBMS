@@ -1,0 +1,5 @@
+input2.txt
+Name|VARCHAR, Year|INTEGER, NickName|VARCHAR
+Andrew, 7, Andy
+Nick, 10, Nikki
+Henry, 8, Hen
