@@ -2,9 +2,10 @@
 #define PLAYER_H_
 
 #include <vector>
+#include "Application.h"
 using namespace std;
 
-class Player {
+class Player : public Application {
   public:
     Player() {}
     
@@ -15,5 +16,5 @@ class Player {
     string position;
     // how are we going to keep different sport player's personal stats?
     // i.e. football: rush yard, baseball: hits, etc.
-}
+};
 #endif
