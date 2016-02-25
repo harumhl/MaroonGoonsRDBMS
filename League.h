@@ -2,10 +2,11 @@
 #define LEAGUE_H_
 
 #include <vector>
+#include "Application.h"
 #include "Team.h"
 using namespace std;
 
-class League {
+class League : public Application {
   public:
     League() {}
     
@@ -17,5 +18,5 @@ class League {
     
   private:
     vector<Team*> teams;
-}
+};
 #endif
