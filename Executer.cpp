@@ -47,13 +47,99 @@ void Executer::command(){
         	    	update();
         	    	break;*/
         	case Token::CREATE:
-        	    	//create();
+        	    	create();
         	    	break;
         	/*case Token::INSERT:
         	    	insert();
         	    	break;*/
 	}
 }
+
+void Executer::create(){
+expect(Token::TABLE);
+	expect(Token::IDENTIFIER);
+	string relationName = token.getValue();
+
+	// Read in the attributes and types
+	expect(Token::LEFTPAREN);
+
+	nextToken();
+	vector<Attribute*> attributes;
+
+	
+	while(token.getTokenType() != Token::RIGHTPAREN)
+	{
+		string name = token.getValue();
+
+		nextToken();
+		if( (token.getTokenType() != Token::VARCHAR) && (token.getTokenType() != Token::INTEGER)) 
+			cout << "Expected INTEGER or VARCHAR";
+
+		Type type;
+		switch (token.getTokenType()){
+			case Token::VARCHAR:
+			{
+				type = Type::VARCHAR;
+			}
+				break;
+			case Token:: INTEGER:
+			{
+				type = Type::INTEGER;
+			}
+				break;
+			case Token:: ENUM:
+			{
+				type = Type::ENUM;
+			}
+				break;
+		}		
+
+		Attribute* attribute;
+		if(type == Type::VARCHAR)
+		{
+			int size;
+			expect(Token::LEFTPAREN);
+			expect(Token::NUMBER);
+			size = token.getNum();
+			expect(Token::RIGHTPAREN);
+
+			attribute = new Attribute(type, name, false, size);
+		}
+		else
+		{
+			attribute = new Attribute(type, name);
+		}
+
+		attributes.push_back(attribute);
+
+		if( ! lookAhead(Token::RIGHTPAREN))
+		{
+			expect(Token::COMMA);
+		}
+		nextToken();
+	}
+
+	expect(Token::PRIMARY);
+	expect(Token::KEY);
+
+	vector<Attribute*> keys = getAttributeList();
+
+	/*for(int i=0; i < attributes.size(); i++)
+	{
+		for(int j=0; j < keys.size(); j++)
+		{
+			if(attributes[i].getValue() == keys[j].getValue())
+			{
+				attributes[i].setPrimary(true);
+			}
+		}
+	}*/
+
+	engine-> createRelation(relationName, attributes);
+
+}
+
+
 void Executer::query(){
 	cout << "query branch taken" << endl;
 	string relationName = token.getValue();
@@ -67,13 +153,7 @@ void Executer::query(){
 	//engine->createRelation(relPtr);
 
 }
-void Executer::expect(Token::TokenTypes type){
-	if(tokens[currentIndex+1].getTokenType() == type){
-		nextToken();
-	}
-	else
-		cerr << "Sorry expected different token type" << endl;
-}
+
 void Executer::setToken(){
 	token = tokens[currentIndex];
 }
@@ -158,6 +238,15 @@ Relation* Executer::combine(Relation* relation){
 	}
 
 }
+
+void Executer::expect(Token::TokenTypes type){
+	if(tokens[currentIndex+1].getTokenType() == type){
+		nextToken();
+	}
+	else
+		cerr << "Sorry expected different token type" << endl;
+}
+
 bool Executer::lookAhead(Token::TokenTypes type){
     if(!atEnd()){
         if(tokens[currentIndex + 1].getTokenType() == type)

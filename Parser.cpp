@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -18,7 +19,6 @@ vector<Token> Parser::splitInput(string query, vector<int>& conditions)
   		bool isDigit = false;
   		bool isCharacter = false;
 		parsedText = "";
-        tokens.clear();
 
   		if( *iter == ' ' || *iter == '\n')
 		{

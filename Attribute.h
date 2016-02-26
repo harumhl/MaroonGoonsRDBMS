@@ -10,6 +10,8 @@ static string EnumStrings[] = {"VARCHAR", "INTEGER", "ENUM"};
 
 class Attribute {
   public:
+
+    Attribute(Type type, string value, bool primary, int size) : type(type), value(value), primary(primary), size(size) {};
     Attribute(Type t, string s): type(t), name(s) {}
     Attribute() {}
     Type getType() { return type; }
@@ -21,5 +23,10 @@ class Attribute {
   private:
     Type type;
     string name;
+    string value;
+    int size;
+    bool primary;
+
+
 };
 #endif
