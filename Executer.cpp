@@ -45,11 +45,11 @@ void Executer::command(){
         	    	break;
         	case Token::UPDATE:
         	    	update();
-        	    	break;
+        	    	break;*/
         	case Token::CREATE:
-        	    	create();
+        	    	//create();
         	    	break;
-        	case Token::INSERT:
+        	/*case Token::INSERT:
         	    	insert();
         	    	break;*/
 	}
@@ -127,7 +127,6 @@ vector<Attribute*> Executer::getAttributeList(){
 	expect(Token::LEFTPAREN);
 	nextToken();
 	vector<Attribute*> attList;
-	Attribute* attPtr = new Attribute();
 	while(token.getTokenType() == Token::IDENTIFIER){
 		attList.push_back(new Attribute(VARCHAR, token.getValue()));
 		nextToken();
@@ -170,13 +169,17 @@ bool Executer::lookAhead(Token::TokenTypes type){
 Relation* Executer::rename(){
 	vector<Attribute*> aList = getAttributeList();
 	Relation* relation = atomicExpr();
-	//return engine->renameRelation(relation, "this needs to change");
 
+	string relationName = relation-> getName();
+	int attributeIndex = relation -> findAttribute(aList[0] -> getName());
+	engine -> renameAttribute(relationName, attributeIndex, aList[1] -> getName());
 }
 Relation* Executer::project(){
 	vector<Attribute*> aList = getAttributeList();
-	cout << aList.at(0)->getName() << " and also by " << aList.at(0)->getName() << endl;
+	//cout << aList.at(0)->getName() << " and also by " << aList.at(0)->getName() << endl;
 	Relation* relation = atomicExpr();
+
+	cout << relation -> getName() << endl;
 	Relation* newRel = engine->project(relation->getName(), aList);
 	engine->createRelation(newRel);
 	engine->show(newRel);
