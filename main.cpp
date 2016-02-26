@@ -7,10 +7,14 @@ int main() {
   Engine* engine = new Engine();
   Parser* parser = new Parser();
   
+    cout << "Running" << endl;
+    
   while (true) {
     string line;
-    getline(line, cin);
+    getline(cin, line);
    
+      if (line == "q" || line == "quit") return 0;
+      
     // parsing
    
     // executer
