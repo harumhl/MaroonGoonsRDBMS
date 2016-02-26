@@ -1,5 +1,6 @@
 input2.txt
-Name|VARCHAR, Year|INTEGER, NickName|VARCHAR
-Andrew, 7, Andy
-Nick, 10, Nikki
-Henry, 8, Hen
+Animal|String, Number|Integer, Country|String
+Dog, 12345678, America
+Cat, 23456789, Italy
+Cattle, 34567890, Brazil
+Horse, 45678901, England
