@@ -46,11 +46,11 @@ void Engine::open(string filename) {
 				
 				if (temp.size() > 2) cerr << "More than one delimeter for a token in attribute list\n";
 				
-				Type type;
+                Attribute::Type type;
 				if (toUpper(temp.at(1)) == "VARCHAR" || toUpper(temp.at(1)) == "STRING")
-					type = VARCHAR;
+					type = Attribute::VARCHAR;
 				else if (toUpper(temp.at(1)) == "INTEGER" || toUpper(temp.at(1)) == "INT")
-					type = INTEGER;
+					type = Attribute::INTEGER;
 				else cerr << "Unknown type\n"; // SHOULD I RETURN OR SOMETHING?
 
 				av.push_back(new Attribute(type, temp.at(0)));	
@@ -66,7 +66,7 @@ void Engine::open(string filename) {
 				try {
 					vector<Attribute*> attributes = relations.at(rel_i)->getAttributes();
 					
-					if (attributes.at(i)->getTypeStr() == "INTEGER")
+					if (attributes.at(i)->getType() == Attribute::INTEGER)
 						int integer = stoi (tokenized.at(i)); // Checking if int when int is expected
 				}
 				catch (exception e) {
@@ -209,7 +209,7 @@ void Engine::deleteTuple(string relation, int tuple_index) {
 	relations.at(relation_index)->removeTuple(tuple_index);
 }
 void Engine::update(Relation* relation, int attributeIndex, Tuple* tuple, string newData){
-	tuple->updateValue(attributeIndex, newData);
+	tuple->changeContent(attributeIndex, newData);
 }
 Relation* Engine::select(string relation, vector<string> attributeNames, Tree* tree) {
 	/* party = "Republican" 
@@ -264,9 +264,9 @@ Relation* Engine::project(string relationName, vector<Attribute*> attributes){
         tempPtr = theRelation->getTuple(i);
         for(int j = 0; j < numCols; j++){
             oldColumnIndex = theRelation->findAttribute(attributes.at(j)->getName());
-            tempTuple->addData(tempPtr->dataPoint(oldColumnIndex));
+            tempTuple->addContent(tempPtr->getContent(oldColumnIndex));
             //currentColumnIndex = theRelation->findAttribute(attributes.at(j))->getName();
-            //tempData = tempPtr->dataPoint(j);
+            //tempData = tempPtr->getContent(j);
         }
         project_relation->addTuple(tempTuple);
     }
@@ -451,8 +451,8 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 		t2 = tuples2.at(second);
 		for(int k = 0; k < attributes2.size(); k++){
 			if(attributes2.at(k)->getName() != commonAttName){
-				newData = t2->dataPoint(k);
-				t1->addData(newData);
+				newData = t2->getContent(k);
+				t1->addContent(newData);
 			}
 		}
 		//cout << "trying to addtuple " << j << " to the rel" << endl;
@@ -509,10 +509,10 @@ vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, s
 	Tuple* tempTuple2;
 	for(int i = 0; i < tuples1.size(); i++){
 		tempTuple1 = tuples1.at(i);
-		data1 = tempTuple1->dataPoint(attribute1index);
+		data1 = tempTuple1->getContent(attribute1index);
 		for(int j = 0; j < tuples2.size(); j++){
 			tempTuple2 = tuples2.at(j);
-			data2 = tempTuple2->dataPoint(attribute2index);
+			data2 = tempTuple2->getContent(attribute2index);
 			//cout<<data2 << " versus " << data1 << endl;
 			if(data1 == data2){
 				indices.first = i;
@@ -643,7 +643,7 @@ bool Engine::testCondition (string relation, Tuple* tuple, Condition* condition)
     else if (condition->getOp() == "!=") return given_content != comparing_content ;
     
     int given_int = -1, comparing_int = -1;
-    if (condition_attribute->getTypeStr() == "INTEGER") {
+    if (condition_attribute->getType() == Attribute::INTEGER) {
         given_int = stoi (given_content);
         comparing_int = stoi (condition->getOp2());
     }

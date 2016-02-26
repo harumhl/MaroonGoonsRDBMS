@@ -131,32 +131,32 @@ void Executer::create(){
 		if( (token.getTokenType() != Token::VARCHAR) && (token.getTokenType() != Token::INTEGER)) 
 			cout << "Expected INTEGER or VARCHAR";
 
-		Type type;
+        Attribute::Type type;
 		switch (token.getTokenType()){
 			case Token::VARCHAR:
 			{
-				type = Type::VARCHAR;
+				type = Attribute::VARCHAR;
 			}
 				break;
 			case Token:: INTEGER:
 			{
-				type = Type::INTEGER;
+				type = Attribute::INTEGER;
 			}
 				break;
 			case Token:: ENUM:
 			{
-				type = Type::ENUM;
+				type = Attribute::ENUM;
 			}
 				break;
 		}		
 
 		Attribute* attribute;
-		if(type == Type::VARCHAR)
+		if(type == Attribute::VARCHAR)
 		{
 			int size;
 			expect(Token::LEFTPAREN);
 			expect(Token::NUMBER);
-			size = token.getNum();
+			size = token.getNumValue();
 			expect(Token::RIGHTPAREN);
 
 			attribute = new Attribute(type, name, false, size);
@@ -252,7 +252,7 @@ vector<Attribute*> Executer::getAttributeList(){
 	nextToken();
 	vector<Attribute*> attList;
 	while(token.getTokenType() == Token::IDENTIFIER){
-		attList.push_back(new Attribute(VARCHAR, token.getValue()));
+        attList.push_back(new Attribute(Attribute::VARCHAR, token.getValue()));
 		nextToken();
 		if((token.getTokenType() != Token::COMMA)&&(token.getTokenType() != Token::RIGHTPAREN))
 			cerr << "Attribute list in wrong format" << endl;

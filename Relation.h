@@ -19,7 +19,6 @@ class Relation {
     vector<Tuple*> getTuples() { return tuples; }
     Attribute* getAttribute(int i) { return attributes.at(i); }
     Tuple* getTuple(int i) { return tuples.at(i); }
-    int getColumns() {return attributes.size();}
     
     // Setters
     void setName (string newName) { name = newName; }

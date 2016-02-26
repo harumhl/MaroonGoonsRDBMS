@@ -2,21 +2,26 @@
 
 #ifndef ATTRIBUTE_H_
 #define ATTRIBUTE_H_
+
 #include <string> 
 using namespace std;
 
-enum Type {VARCHAR, INTEGER, ENUM};
-static string EnumStrings[] = {"VARCHAR", "INTEGER", "ENUM"};
-
 class Attribute {
   public:
-
-    Attribute(Type type, string value, bool primary, int size) : type(type), value(value), primary(primary), size(size) {};
-    Attribute(Type t, string s): type(t), name(s) {}
+    enum Type {VARCHAR, INTEGER, ENUM};
+    string EnumStrings[3] = {"VARCHAR", "INTEGER", "ENUM"};
+    
     Attribute() {}
+    Attribute(Type t, string s): type(t), name(s) {}
+    Attribute(Type type, string value, bool primary, int size)
+        : type(type), value(value), primary(primary), size(size) {};
+    
+    // Getters
     Type getType() { return type; }
     string getName() { return name; }
     string getTypeStr() { return EnumStrings[type]; }
+    
+    // Setters
     void setType(Type t) { type = t; }
     void setName(string s) { name = s; }
 
