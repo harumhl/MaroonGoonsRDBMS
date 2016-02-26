@@ -13,9 +13,12 @@ struct Tuple {
   public:
     Tuple() {}
     Tuple(vector<string> newContents): contents(newContents) {}
+    
+    // Getter and Setter
     vector<string> getContents () { return contents; }
-    string dataPoint(int index) { return contents.at(index); }
     void setContents(vector<string> newContents) {contents = newContents;}
+    
+    string dataPoint(int index) { return contents.at(index); }
     void addData(string newData) {contents.push_back(newData);}
     void updateValue(int index, string newData) {contents[index]= newData;}
   

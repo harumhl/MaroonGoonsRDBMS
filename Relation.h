@@ -1,18 +1,19 @@
 #ifndef RELATION_H_
 #define RELATION_H_
-#include "Attribute.h"
-#include "Tuple.h"
+
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include "Attribute.h"
+#include "Tuple.h"
 using namespace std;
 
 class Relation {
   public:
-    Relation(string s, vector<Attribute*> attr): name(s), attributes(attr) {}
     Relation() {}
-    
+    Relation(string s, vector<Attribute*> attr): name(s), attributes(attr) {}
+
+    // Getters
     string  getName() { return name; }
     vector<Attribute*> getAttributes() { return attributes; }
     vector<Tuple*> getTuples() { return tuples; }
@@ -20,10 +21,12 @@ class Relation {
     Tuple* getTuple(int i) { return tuples.at(i); }
     int getColumns() {return attributes.size();}
     
+    // Setters
     void setName (string newName) { name = newName; }
     void setAttributes(vector<Attribute*> av) { attributes = av; }
     void setTuple(vector<Tuple*> tv) { tuples = tv; }
     
+    // Add or Remove tuples
     void addTuple(Tuple* t) { tuples.push_back(t); }
     void removeTuple(int i) { tuples.erase( tuples.begin()+i ); } 
     
@@ -31,10 +34,11 @@ class Relation {
     	int index = -1;
     	for(int i = 0; i < attributes.size(); i++){
     		if(attributes.at(i)->getName() == name)
-    			index = i;
+    			return i;
     	}
     	return index;
     }
+    
   private:
     string name;
     vector<Attribute*> attributes;

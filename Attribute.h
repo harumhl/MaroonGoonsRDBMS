@@ -11,12 +11,17 @@ static string EnumStrings[] = {"VARCHAR", "INTEGER", "ENUM"};
 class Attribute {
   public:
 
-    Attribute(Type type, string value, bool primary, int size) : type(type), value(value), primary(primary), size(size) {};
-    Attribute(Type t, string s): type(t), name(s) {}
     Attribute() {}
-    Type getType() { return type; }
+    Attribute(Type t, string s): type(t), name(s) {}
+    Attribute(Type type, string value, bool primary, int size)
+        : type(type), value(value), primary(primary), size(size) {}
+
+    // Getters
+    Type   getType() { return type; }
     string getName() { return name; }
     string getTypeStr() { return EnumStrings[type]; }
+    
+    // Setters
     void setType(Type t) { type = t; }
     void setName(string s) { name = s; }
 
@@ -26,7 +31,5 @@ class Attribute {
     string value;
     int size;
     bool primary;
-
-
 };
 #endif
