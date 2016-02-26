@@ -1,5 +1,6 @@
 #ifndef ENGINE_H_
 #define ENGINE_H_
+
 #include <iostream>
 #include <string>
 #include "Relation.h"
@@ -27,7 +28,7 @@ class Engine {
     
     void insertTuple(string relation, Tuple* tuple);
     void deleteTuple(string relation, int tuple_index);// WHAT SHOULD BE THE SECOND ARG?
-    void update(Relation* relation, int attributeIndex, Tuple* tuple, string newData);
+    void updateTuple(Relation* relation, int attributeIndex, Tuple* tuple, string newData);
     
     Relation* select(string relation, vector<string> attributeName, Tree* tree);
     Relation* project(string relation, vector<Attribute*> attributeNames);
@@ -37,20 +38,21 @@ class Engine {
     Relation* naturalJoin(string relation1, string relation2);
     
     
-    //temp
+    //helper functions
+    bool    tupleExists(Relation* relation, Tuple* tuple);
+    void    changeRelationName (int relation_index, string relation);
+    string  relationName(int index);
+    int     findRelation (string relation); // returns the index in relations
     Relation* getRelation(int i) { return relations.at(i); }
-    void changeRelationName (int relation_index, string relation);
-    int numRelations = 0;
-    string relationName(int index);
-    bool tupleExists(Relation* relation, Tuple* tuple);
     vector<pair<int,int>> attributesInBoth(string relation1, string relation2);
     vector<pair<int,int>> tuplesInBoth(string relation1, string relation2, string searchData);
-    int findRelation (string relation); // returns the index in relations
     
  private:
     vector<Relation*> relations;
     vector<Relation*> tempRelations; //The relations that will not be saved(views from algebra operations)
-    
+    int numRelations = 0;
+
+    // helper functions
     vector<string>  tokenize (string input, char delimeter);
     pair<int,int>   findSameAttribute (string relation1, string relation2); // if found, return index of relation1, or else -1
     string          trimString (string str);

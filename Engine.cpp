@@ -16,7 +16,8 @@ void Engine::open(string filename) {
 	// For attributes, I will be using "|" as delimeter (least used char), e.g. Name|String, ...
 	// I will also assume the first line to be the title of the relation, the second line to be list of attributes
 	bool isFirstLine = true, isSecondLine = true; // first = title, second = attributes
-	string input;
+    int numAttributes = 0;
+    string input; string relationName;
 	vector<string> tokenized;
 	while(!ifs.eof()) {
 		getline(ifs, input);
@@ -32,48 +33,60 @@ void Engine::open(string filename) {
             int rel_i = relations.size()-1;
             
             relations.at(rel_i)->setName(input);
+            relationName = input;
             isFirstLine = false;
         }
         else if (isSecondLine) { // attributes
 			// create and add attributes
-			int rel_i = relations.size()-1; // the newest relation - assuming it was made in IF stmt
+			int rel_i = findRelation(relationName);
 			
 			bool isFirstDelimeter = true;
-			vector<Attribute*> av;
+			vector<Attribute*> attributeVec;
 			for (int i=0; i< tokenized.size(); i++) {
 				vector<string> temp;
-				temp = tokenize(tokenized.at(i), '|');
+				temp = tokenize(tokenized.at(i), '|'); // Name1|Type1, Name2|Type2, etc.
 				
-				if (temp.size() > 2) cerr << "More than one delimeter for a token in attribute list\n";
+				if (temp.size() > 2)
+                    cerr << "More than one delimeter for a token in attribute list\n";
 				
                 Attribute::Type type;
 				if (toUpper(temp.at(1)) == "VARCHAR" || toUpper(temp.at(1)) == "STRING")
 					type = Attribute::VARCHAR;
 				else if (toUpper(temp.at(1)) == "INTEGER" || toUpper(temp.at(1)) == "INT")
 					type = Attribute::INTEGER;
-				else cerr << "Unknown type\n"; // SHOULD I RETURN OR SOMETHING?
+				else cerr << "Unknown type\n";
 
-				av.push_back(new Attribute(type, temp.at(0)));	
+				attributeVec.push_back(new Attribute(type, temp.at(0)));
 			}
-			relations.at(rel_i)->setAttributes(av);
+			relations.at(rel_i)->setAttributes(attributeVec);
+            numAttributes = attributeVec.size();
 			isSecondLine = false;
 		}
 		else { // tuples
-			int rel_i = relations.size()-1; // the newest relation - assuming it was made in IF stmt
+			int rel_i = findRelation(relationName);
 			
             // Checking for a type validation (e.g. if it's integer when int is expected)
 			for (int i=0; i< tokenized.size(); i++) {
 				try {
 					vector<Attribute*> attributes = relations.at(rel_i)->getAttributes();
+                    
+                    // If numAttributes < numTokens, then just pass them.
+                    if (i+1 > numAttributes) break;
 					
+                    // Checking if int when int is expected
 					if (attributes.at(i)->getType() == Attribute::INTEGER)
-						int integer = stoi (tokenized.at(i)); // Checking if int when int is expected
+						int integer = stoi (tokenized.at(i));
 				}
 				catch (exception e) {
-					cerr << "Tuple not in right format " << e.what() << endl;
+					cerr << "Tuple not in right format (expected int)" << e.what() << endl;
 				}
 			}
-			
+            // If numTokens > numAttributes, then disregard those (rest of) tokens
+            if (tokenized.size() > numAttributes) {
+                vector<string> subTokenized(tokenized.begin(), tokenized.begin()+numAttributes);
+                tokenized = subTokenized;
+            }
+
 			relations.at(rel_i)->addTuple (new Tuple(tokenized));
 		}
 	}
@@ -93,49 +106,50 @@ void Engine::write(string relation, string filename) { // default arg = "Output.
     ofstream ofs;
     ofs.open(filename.c_str());
 
-    // Going Through each relation
-    for (int i=0; i< relations.size(); i++) {
+    int relation_index = findRelation (relation);
+    if (relation_index == -1) return;
+
+    Relation* a_relation = relations.at(relation_index);
+    
+    // Write Out relation Name
+    ofs << a_relation->getName() << endl;
+    
+    // Write Out Attributes
+    vector<Attribute*> attributes = a_relation->getAttributes();
+    for (int j=0; j< attributes.size(); j++) {
+        Attribute* the_attribute = attributes.at(j);
+        ofs << the_attribute->getName() << "|" << the_attribute->getTypeStr();
         
-        Relation* a_relation = relations.at(i);
+        // put delimeter except the end of the last attribute
+        if (j != attributes.size()-1) ofs << ", ";
+    }
+    ofs << endl;
+    
+    // Write Out Tuples
+    vector<Tuple*> tuples = a_relation->getTuples();
+    for (int k=0; k< tuples.size(); k++) {
+        Tuple* the_tuple = tuples.at(k);
         
-        // Write Out relation Name
-        ofs << a_relation->getName() << endl;
-        
-        // Write Out Attributes
-        vector<Attribute*> attributes = a_relation->getAttributes();
-        for (int j=0; j< attributes.size(); j++) {
-            Attribute* the_attribute = attributes.at(j);
-            ofs << the_attribute->getName() << "|" << the_attribute->getTypeStr();
+        // Write Out each string
+        vector<string> tuple_contents = the_tuple->getContents();
+        for (int l=0; l< tuple_contents.size(); l++) {
+            ofs << tuple_contents.at(l);
             
-            // put delimeter except the end of the last attribute
-            if (j != attributes.size()-1) ofs << ", ";
+            // put delimeter except the end of the last string of each tuple
+            if (l != tuple_contents.size()-1) ofs << ", ";
         }
         ofs << endl;
-        
-        // Write Out Tuples
-        vector<Tuple*> tuples = a_relation->getTuples();
-        for (int k=0; k< tuples.size(); k++) {
-            Tuple* the_tuple = tuples.at(k);
-            
-            // Write Out each string
-            vector<string> tuple_contents = the_tuple->getContents();
-            for (int l=0; l< tuple_contents.size(); l++) {
-                ofs << tuple_contents.at(l);
-                
-            // put delimeter except the end of the last string of each tuple
-                if (l != tuple_contents.size()-1) ofs << ", ";
-            }
-            ofs << endl;
-        }
     }
+
+
     ofs.close();
 }
 
 void Engine::exit_(){
-	cerr << "Exiting Program Now";
+	cerr << "Exiting Program Now" << endl;
 	exit(0);
 }
-void Engine::show(string relation) { // TEMP implementation
+void Engine::show(string relation) {
     int relation_index = findRelation (relation);
     if (relation_index == -1) return;
     
@@ -146,8 +160,8 @@ void Engine::show(string relation) { // TEMP implementation
 void Engine::show(Relation* the_relation) {
     
     cout << "Relation name: " << the_relation->getName() << endl;
-    cout << "Attributes #" << the_relation->getAttributes().size() << endl;
-    cout << "Tuples #" << the_relation->getTuples().size() << endl << endl;
+    cout << "Attributes #: " << the_relation->getAttributes().size() << endl;
+    cout << "Tuples #: " << the_relation->getTuples().size() << endl << endl;
     
     // Print Out Attributes in format of typename[type], ...
     vector<Attribute*> attributes = the_relation->getAttributes();
@@ -206,9 +220,11 @@ void Engine::insertTuple(string relation, Tuple* tuple) {
 void Engine::deleteTuple(string relation, int tuple_index) {
 	int relation_index = findRelation (relation);
 	if (relation_index == -1) return;
+    
 	relations.at(relation_index)->removeTuple(tuple_index);
 }
-void Engine::update(Relation* relation, int attributeIndex, Tuple* tuple, string newData){
+void Engine::updateTuple
+(Relation* relation, int attributeIndex, Tuple* tuple, string newData){
 	tuple->changeContent(attributeIndex, newData);
 }
 Relation* Engine::select(string relation, vector<string> attributeNames, Tree* tree) {
@@ -249,6 +265,8 @@ Relation* Engine::select(string relation, vector<string> attributeNames, Tree* t
 }
 Relation* Engine::project(string relationName, vector<Attribute*> attributes){
     int index = findRelation(relationName);
+    if (index == -1) return nullptr;
+
     Relation* theRelation = relations.at(index);
     vector<Attribute*> oldAttributes = theRelation->getAttributes();
     Relation* project_relation = new Relation("projection", attributes);

@@ -1,6 +1,6 @@
 input2.txt
 Animal|String, Number|Integer, Country|String
-Dog, 12345678, America
+Lion, 12345678, America
 Cat, 23456789, Italy
 Cattle, 34567890, Brazil
 Horse, 45678901, England
