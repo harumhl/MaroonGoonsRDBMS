@@ -11,7 +11,6 @@ vector<Token> Parser::splitInput(string query, vector<int>& conditions)
   
   	iter = query.begin();
   	string parsedText = ""; 
-  	//tokens.clear();	was causing the function to fail and only return one token
 
     while( iter != query.end())
   	{
