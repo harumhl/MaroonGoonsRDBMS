@@ -24,7 +24,7 @@ int main() {
   engine->show("Students");
   vector<int> theVec;
 
-  vector<Token> tokenvec = parser->splitInput(q2, theVec);
+  vector<Token> tokenvec = parser->splitInput(q2);
 
   cout << tokenvec.size() << endl;
   Executer* exec = new Executer();
@@ -44,7 +44,7 @@ int main() {
       
     // parsing
       vector<int> conditions;
-      parser->splitInput (line, conditions);
+      parser->splitInput (line);
       // create condition tree
    
     // executer

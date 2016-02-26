@@ -5,6 +5,8 @@
 #include "Engine.h"
 #include "Token.h"
 #include "Parser.h"
+#include "Tree.h"
+#include "TreeNode.h"
 using namespace std;
 
 class Executer {
@@ -19,6 +21,7 @@ class Executer {
     Relation* expr();
     Relation* atomicExpr();
     Relation* rename();
+    Relation* select();
     Relation* project();
     Relation* combine(Relation* relation);
     vector<Attribute*> getAttributeList();
@@ -34,6 +37,7 @@ class Executer {
     int currentIndex;
   private:
     Engine* engine;
+    Tree* tree;
 
 };
 

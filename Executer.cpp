@@ -274,3 +274,16 @@ Relation* Executer::project(){
 	engine->show(newRel);
 	return newRel;
 }
+Relation* Executer::select() {
+    vector<Attribute*> aList = getAttributeList();
+    cout << aList.at(0)->getName() << " and also by " << aList.at(0)->getName() << endl;
+    
+    Relation* relation = atomicExpr();
+    int condition_int; // THIS SHOULD BE FROM PARSER!!!
+    tree->buildTree(tokens, condition_int);
+    Relation* newRel = engine->select(relation->getName(), aList, tree);
+    
+    engine->createRelation(newRel);
+    engine->show(newRel);
+    return newRel;
+}
