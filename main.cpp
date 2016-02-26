@@ -19,14 +19,16 @@ int main() {
 
   string q1 = "a <- Project (Animal, Number) Students;";
   string q2 = "a <- rename (Animal, Species) Students";
+  string createTest = "CREATE TABLE Teams (id INTEGER, city VARCHAR(20), state VARCHAR(20)) PRIMARY KEY (id)";
+  string insertTest = "INSERT INTO Students VALUES FROM (Mouse, 12345665, Mexico)";
   engine->open("input2.txt");
   engine->changeRelationName(0, "Students");
   engine->show("Students");
   vector<int> theVec;
+// To test use the different hardcoded strings to parse first.
+  //vector<Token> tokenvec0 = parser -> splitInput(createTest, theVec);
+  vector<Token> tokenvec = parser->splitInput(insertTest, theVec);
 
-  vector<Token> tokenvec = parser->splitInput(q2);
-
-  cout << tokenvec.size() << endl;
   Executer* exec = new Executer();
   exec->execute(engine, tokenvec);
   engine->show("Students");
@@ -44,7 +46,7 @@ int main() {
       
     // parsing
       vector<int> conditions;
-      parser->splitInput (line);
+      parser->splitInput (line, conditions);
       // create condition tree
    
     // executer

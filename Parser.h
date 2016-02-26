@@ -11,12 +11,11 @@
 using namespace std;
 class Parser{
   public:
-    Parser() {}
-    Parser(string query) : query(query) {}
-    
+    Parser() {currentIndex = 0;}
+    Parser(string query) : query(query) {currentIndex = 0;}
     vector<Token> getTokens(){return tokens;}
     string getQuery(){ return query; }
-    vector<Token> splitInput(string query);
+    vector<Token> splitInput(string query, vector<int>& conditions);
     Token recognizeToken(string input);
     string skipChars(int distance);
     vector< vector<Token> > getTokenVector(){ return vtokens; }
@@ -26,12 +25,11 @@ class Parser{
   private:
     string query;
     vector< vector<Token> > vtokens;
-    int currentIndex = 0;
+    int currentIndex;
     string::iterator iter;
     vector<Token> tokens;
     string symbols1[12] = {"<", ">", "{", "}", "+", "-", "*", ";", "(", ")", ",", "="};
     string symbols2[7] = {"==", "!=", "<=", ">=", "<-", "||", "&&"};
-    vector<int> conditions;
     
     void setToken();
     void increment();

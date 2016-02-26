@@ -211,7 +211,7 @@ void Engine::deleteTuple(string relation, int tuple_index) {
 void Engine::update(Relation* relation, int attributeIndex, Tuple* tuple, string newData){
 	tuple->updateValue(attributeIndex, newData);
 }
-Relation* Engine::select(string relation, vector<Attribute*> given_attributes, Tree* tree) {
+Relation* Engine::select(string relation, vector<string> attributeNames, Tree* tree) {
 	/* party = "Republican" 
 	OR Years > 3 
 	OR Name In USRepTable (== EXISTS (USREP)) 
@@ -226,9 +226,9 @@ Relation* Engine::select(string relation, vector<Attribute*> given_attributes, T
     Relation* given_relation = relations.at(relation_index);
     
     // Filling Up Attributes For the_relation
-//    vector<Attribute*> given_attributes;
+    vector<Attribute*> given_attributes = given_relation->getAttributes();
     vector<int>        attribute_indices; // Which attribute/column to save
-    vector<Attribute*> the_attributes;// = findAttributes(relation, attributeNames, attribute_indices);
+    vector<Attribute*> the_attributes = findAttributes(relation, attributeNames, attribute_indices);
     
     Relation* the_relation = new Relation("Relation from SELECT command", the_attributes);
 

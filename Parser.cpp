@@ -7,7 +7,7 @@
 #include "Parser.h"
 using namespace std;
 
-vector<Token> Parser::splitInput(string query)
+vector<Token> Parser::splitInput(string query, vector<int>& conditions)
 {
   
   	iter = query.begin();

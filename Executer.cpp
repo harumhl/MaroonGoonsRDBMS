@@ -49,14 +49,71 @@ void Executer::command(){
         	case Token::CREATE:
         	    	create();
         	    	break;
-        	/*case Token::INSERT:
+        	case Token::INSERT:
         	    	insert();
-        	    	break;*/
+        	    	break;
 	}
 }
 
+void Executer::insert(){
+	expect(Token::INTO);
+	expect(Token::IDENTIFIER);
+
+	string relationName = token.getValue();
+
+	expect(Token::VALUES);
+	expect(Token::FROM);
+
+	nextToken();
+
+	// Token can be either a ( or RELATION
+	if(token.getTokenType() == Token::RELATION)
+	{
+		nextToken();
+
+		// Inserting from expression
+		Relation* relation = expr();
+
+		vector<Tuple*> tuples = relation ->getTuples();
+
+		for(int i=0; i<tuples.size(); i++)
+		{
+			engine->insertTuple(relationName, tuples[i]);
+		}
+	}
+	else if(token.getTokenType() == Token::LEFTPAREN)
+	{
+		vector<string> tupleContents;
+		//Tuple* tuple;
+
+		do
+		{
+			nextToken();
+			tupleContents.push_back(token.getValue());
+			nextToken();
+		}
+		while(token.getTokenType() == Token::COMMA);
+//
+		//Segmentation Fault here
+		cout << "SegStart" << endl;
+		for(int i = 0; i< tupleContents.size(); i++)
+		{
+			cout << tupleContents[i] << endl;
+		}
+		Tuple* tuple = new Tuple(tupleContents);
+//
+		cout << "SegEnding" << endl;
+		if(token.getTokenType() != Token::RIGHTPAREN) 
+			cout << "Expected RIGHTPAREN" << endl;;
+
+		engine->insertTuple(relationName, tuple);
+	}
+
+}
+
 void Executer::create(){
-expect(Token::TABLE);
+
+	expect(Token::TABLE);
 	expect(Token::IDENTIFIER);
 	string relationName = token.getValue();
 
@@ -66,7 +123,6 @@ expect(Token::TABLE);
 	nextToken();
 	vector<Attribute*> attributes;
 
-	
 	while(token.getTokenType() != Token::RIGHTPAREN)
 	{
 		string name = token.getValue();
@@ -123,18 +179,6 @@ expect(Token::TABLE);
 	expect(Token::KEY);
 
 	vector<Attribute*> keys = getAttributeList();
-
-	/*for(int i=0; i < attributes.size(); i++)
-	{
-		for(int j=0; j < keys.size(); j++)
-		{
-			if(attributes[i].getValue() == keys[j].getValue())
-			{
-				attributes[i].setPrimary(true);
-			}
-		}
-	}*/
-
 	engine-> createRelation(relationName, attributes);
 
 }
@@ -273,17 +317,4 @@ Relation* Executer::project(){
 	engine->createRelation(newRel);
 	engine->show(newRel);
 	return newRel;
-}
-Relation* Executer::select() {
-    vector<Attribute*> aList = getAttributeList();
-    cout << aList.at(0)->getName() << " and also by " << aList.at(0)->getName() << endl;
-    
-    Relation* relation = atomicExpr();
-    int condition_int; // THIS SHOULD BE FROM PARSER!!!
-    tree->buildTree(tokens, condition_int);
-    Relation* newRel = engine->select(relation->getName(), aList, tree);
-    
-    engine->createRelation(newRel);
-    engine->show(newRel);
-    return newRel;
 }
