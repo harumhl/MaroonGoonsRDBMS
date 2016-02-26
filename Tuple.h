@@ -4,7 +4,10 @@
 #define TUPLE_H_
 #include <string> 
 #include <vector>
+#include "Application.h"
 using namespace std;
+
+enum TupleType { LEAGUE, TEAM, PLAYER };
 
 struct Tuple {
   public:
@@ -18,5 +21,7 @@ struct Tuple {
   
   private:
     vector<string> contents; // contents of each row
+    Application* app; // pointer to either League, Team, or Player (where the data is coming from - for update)
+    TupleType tupleType;
 };
 #endif
