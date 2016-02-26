@@ -263,28 +263,33 @@ Relation* Engine::select(string relation, vector<string> attributeNames, Tree* t
 
     return the_relation;
 }
-Relation* Engine::project(string relationName, vector<Attribute*> attributes){
-    int index = findRelation(relationName);
-    if (index == -1) return nullptr;
+Relation* Engine::project(string relation, vector<Attribute*> attributes){
+    int relation_index = findRelation(relation);
+    if (relation_index == -1) return nullptr;
 
-    Relation* theRelation = relations.at(index);
-    vector<Attribute*> oldAttributes = theRelation->getAttributes();
+    Relation* theRelation = relations.at(relation_index);
     Relation* project_relation = new Relation("projection", attributes);
-    vector<Tuple*> newTuples;// = relation_1->getTuples();
+    
+    vector<Attribute*> oldAttributes = theRelation->getAttributes();
+    vector<Tuple*> newTuples;
+    
     int numCols = attributes.size();
     int numRows = theRelation->getTuples().size();
-    Tuple* tempPtr;
-    string tempData;
+    
     int oldColumnIndex, newColumnIndex;
-    string currentColumn;
+    
     for(int i = 0; i < numRows; i++){
         Tuple* tempTuple = new Tuple;
-        tempPtr = theRelation->getTuple(i);
+        Tuple* tempPtr = theRelation->getTuple(i);
+        
         for(int j = 0; j < numCols; j++){
             oldColumnIndex = theRelation->findAttribute(attributes.at(j)->getName());
-            tempTuple->addContent(tempPtr->getContent(oldColumnIndex));
-            //currentColumnIndex = theRelation->findAttribute(attributes.at(j))->getName();
-            //tempData = tempPtr->getContent(j);
+            
+            if (oldColumnIndex == -1)
+                cerr << "Tuple does not have column for \"" << attributes.at(j)->getName() << "\"" << endl;
+            else {
+                tempTuple->addContent(tempPtr->getContent(oldColumnIndex));
+            }
         }
         project_relation->addTuple(tempTuple);
     }
