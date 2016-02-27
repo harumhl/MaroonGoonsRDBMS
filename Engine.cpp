@@ -42,6 +42,7 @@ void Engine::open(string filename) {
 			
 			bool isFirstDelimeter = true;
 			vector<Attribute*> attributeVec;
+            
 			for (int i=0; i< tokenized.size(); i++) {
 				vector<string> temp;
 				temp = tokenize(tokenized.at(i), '|'); // Name1|Type1, Name2|Type2, etc.
@@ -49,6 +50,7 @@ void Engine::open(string filename) {
 				if (temp.size() > 2)
                     cerr << "More than one delimeter for a token in attribute list\n";
 				
+                // Defining the type for the attribute
                 Attribute::Type type;
 				if (toUpper(temp.at(1)) == "VARCHAR" || toUpper(temp.at(1)) == "STRING")
 					type = Attribute::VARCHAR;
@@ -70,7 +72,7 @@ void Engine::open(string filename) {
 				try {
 					vector<Attribute*> attributes = relations.at(rel_i)->getAttributes();
                     
-                    // If numAttributes < numTokens, then just pass them.
+                    // If numAttributes < numTokens, then just pass/ignore them.
                     if (i+1 > numAttributes) break;
 					
                     // Checking if int when int is expected
@@ -155,7 +157,7 @@ void Engine::show(string relation) {
     
     Relation* the_relation = relations.at(relation_index);
 
-    this->show(the_relation);
+    this->show(the_relation); // Overloaded
 }
 void Engine::show(Relation* the_relation) {
     
@@ -267,6 +269,7 @@ Relation* Engine::project(string relation, vector<Attribute*> attributes){
     int relation_index = findRelation(relation);
     if (relation_index == -1) return nullptr;
 
+    // Creating needed variables
     Relation* theRelation = relations.at(relation_index);
     Relation* project_relation = new Relation("projection", attributes);
     
@@ -278,10 +281,12 @@ Relation* Engine::project(string relation, vector<Attribute*> attributes){
     
     int oldColumnIndex, newColumnIndex;
     
+    // Iterating through each tuple
     for(int i = 0; i < numRows; i++){
         Tuple* tempTuple = new Tuple;
         Tuple* tempPtr = theRelation->getTuple(i);
         
+        // For tuples with matching attributes (as given), keep the contents
         for(int j = 0; j < numCols; j++){
             oldColumnIndex = theRelation->findAttribute(attributes.at(j)->getName());
             
@@ -305,6 +310,7 @@ Relation* Engine::union_(string relation1, string relation2){
     
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 	
+    // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
 	Relation* relation_2 = relations.at(relation2_index);
 
@@ -319,10 +325,6 @@ Relation* Engine::union_(string relation1, string relation2){
     // Adding all tuples from relation1
     union_relation->setTuples( relation_1->getTuples() );
     
-    /*for(int i = 0; i < tuples1.size(); i++){
-		Tuple* tuple = relation_1->getTuple(i);
-		union_relation->addTuple(tuple);
-	}*/
     // Adding tuples from relation2 if not already added by relation1
 	for(int j = 0; j < tuples2.size(); j++){
 		Tuple* tuple = relation_2->getTuple(j);
@@ -344,6 +346,7 @@ Relation* Engine::difference(string relation1, string relation2){
     
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 
+    // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
 	Relation* relation_2 = relations.at(relation2_index);
 
@@ -376,21 +379,29 @@ Relation* Engine::difference(string relation1, string relation2){
 Relation* Engine::crossProduct(string relation1, string relation2) {
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
+    
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 	
-	// WE NEED TO GET THE NAMING ALL SAME!!!
+    // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
 	Relation* relation_2 = relations.at(relation2_index);
-	vector<Attribute*> attributes1 = relation_1->getAttributes();
+
+    vector<Attribute*> attributes1 = relation_1->getAttributes();
 	vector<Attribute*> attributes2 = relation_2->getAttributes();
-	vector<Tuple*> tuples1 = relation_1->getTuples();
+
+    vector<Tuple*> tuples1 = relation_1->getTuples();
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 	
+    // Getting a pair of indices (one for relation1, another for relation2), which should be NONE
 	pair<int,int> sameAttributeIndex = findSameAttribute(relation1, relation2);
-	if (sameAttributeIndex.first != -1) cerr << "Same Attributes Found For Cross Product\n";
+    if (sameAttributeIndex.first >= 0) { // Neither -1 or -99
+        cerr << "Same Attributes Found For Cross Product" << endl;
+        return nullptr;
+    }
 	
-	vector<Attribute*> the_attributes;
-	// the_attributes = attributes1 + attributes2
+	vector<Attribute*> the_attributes; 
+	
+    // the_attributes = attributes1 + attributes2
 	the_attributes.reserve(attributes1.size() + attributes2.size() ); // preallocate memory
 	the_attributes.insert( the_attributes.end(), attributes1.begin(), attributes1.end() );
 	the_attributes.insert( the_attributes.end(), attributes2.begin(), attributes2.end() );
@@ -398,46 +409,54 @@ Relation* Engine::crossProduct(string relation1, string relation2) {
 	string temp = "crossProduct of " +relation_1->getName() +" & " +relation_2->getName();
 	Relation* the_relation = new Relation(temp, the_attributes);
 	
+    // Iterating through tuples in relation1
 	for (int i=0; i< tuples1.size(); i++) {
-		for (int j=0; j< tuples2.size(); j++) {
+
+        // Iterating through tuples in relation2
+        for (int j=0; j< tuples2.size(); j++) {
 			vector<string> the_tuple_contents;
 			vector<string> tuples1_content = tuples1.at(i)->getContents();
 			vector<string> tuples2_content = tuples2.at(j)->getContents();
             
 			// the_tuple_contents = tuples1_content + tuples2_content
-			the_tuple_contents.reserve(tuples1_content.size() + tuples2_content.size() ); // preallocate memory
+			the_tuple_contents.reserve(tuples1_content.size() + tuples2_content.size() );
 			the_tuple_contents.insert( the_tuple_contents.end(), tuples1_content.begin(), tuples1_content.end() );
 			the_tuple_contents.insert( the_tuple_contents.end(), tuples2_content.begin(), tuples2_content.end() );
 			
 			the_relation->addTuple(new Tuple(the_tuple_contents));
 		}
 	}
-	
 	return the_relation;
 }
 Relation* Engine::naturalJoin(string relation1, string relation2) {
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
+    
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 	
-	// WE NEED TO GET THE NAMING ALL SAME!!!
+    // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
 	Relation* relation_2 = relations.at(relation2_index);
-	vector<Attribute*> attributes1 = relation_1->getAttributes();
+
+    vector<Attribute*> attributes1 = relation_1->getAttributes();
 	vector<Attribute*> attributes2 = relation_2->getAttributes();
-	vector<Tuple*> tuples1 = relation_1->getTuples();
+
+    vector<Tuple*> tuples1 = relation_1->getTuples();
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 	
 	vector<pair<int,int>> matchingColumns = attributesInBoth(relation1, relation2);
 	//need a function which compares tuples in 2 relations and finds a common index
 	//of all tuple pairs, in order to populate the final naturaljoin relation
 	if(matchingColumns.size() == 0){
-		cerr << "Error, these relations cannot be joined";
+		cerr << "Error, these relations cannot be joined (no same attribute)" << endl;
+        return nullptr;
 	}
+    
 	pair<int,int> sameAttributeIndex = matchingColumns.back();
 	//need a pair<int,int> sameTupleIndex; that compares relations based on the
 	//datapoints in tuples at the common attribute index, only adding tuples that are ;
-	matchingColumns.pop_back();
+	
+    matchingColumns.pop_back();
 	int index1 = sameAttributeIndex.first;
 	string commonAttName = attributes1.at(index1)->getName();
 	int index2 = sameAttributeIndex.second;
