@@ -26,8 +26,8 @@ int main() {
   engine->show("Students");
   vector<int> theVec;
 // To test use the different hardcoded strings to parse first.
-  //vector<Token> tokenvec0 = parser -> splitInput(createTest, theVec);
-  vector<Token> tokenvec = parser->splitInput(insertTest, theVec);
+  //vector<Token> tokenvec0 = parser -> splitInput(createTest);
+  vector<Token> tokenvec = parser->splitInput(insertTest);
 
   Executer* exec = new Executer();
   exec->execute(engine, tokenvec);
