@@ -30,7 +30,7 @@ class Engine {
     void deleteTuple(string relation, int tuple_index);// WHAT SHOULD BE THE SECOND ARG?
     void updateTuple(Relation* relation, int attributeIndex, Tuple* tuple, string newData);
     
-    Relation* select(string relation, vector<string> attributeName, Tree* tree);
+    Relation* select(string relation, vector<Attribute*> attributeName, Tree* tree);
     Relation* project(string relation, vector<Attribute*> attributeNames);
     Relation* union_(string relation1, string relation2);
     Relation* difference(string relation1, string relation2);

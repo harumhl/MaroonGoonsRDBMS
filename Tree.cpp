@@ -1,24 +1,105 @@
-#include "Token.h"
-#include "Condition.h"
-
 #include "Tree.h"
+#include "Condition.h"
+#include "Token.h"
 using namespace std;
-Token* getNextToken() { return new Token(); }
-void pushBackToken(Token* t) {}
 
-bool Tree::isNodeLeaf(TreeNode* node) {
-    Condition* c = (Condition*) node; // Forceful casting
-    
-    // using Condition's function. a Condition object should not have Op1 empty
-    if (c->getOp1() == "") return false;
-    
-    return true;
+TreeNode* Tree::buildTree(vector<Token> tokenVec, int& starting) {
+    the_root = condition(tokenVec, starting);
+    return the_root;
 }
+
+// If "||", then make a new node with it as a parent, make the current holding node as its left child, then call conjunction() for its right child
+TreeNode* Tree::condition(vector<Token> tokenVec, int& starting) {
+    
+    TreeNode* left = conjunction(tokenVec, starting);
+    
+    if (tokenVec.size() <= starting) return left;
+    Token t = tokenVec.at(starting++);
+    
+    while(true) {
+        switch(t.getTokenType()) {
+            case Token::BOR: // ||
+            {
+                TreeNode* parent = new TreeNode("||");
+                parent->addChild(left);
+                left->setParent(parent);
+                
+                TreeNode* right = conjunction(tokenVec, starting);
+                parent->addChild(right);
+                right->setParent(parent);
+
+                left = parent;
+                t = tokenVec.at(starting++);
+                break; // it'll work like continue; b/c of switch stmt
+            }
+            default:
+                starting--; // pushbackToken
+                return left;
+        }
+    }
+}
+// If "&&", then make a new node with it as a parent, make the current holding node as its left child, then call comparison() for its right child
+TreeNode* Tree::conjunction(vector<Token> tokenVec, int& starting) {
+    
+    TreeNode* left = comparison(tokenVec, starting);
+    
+    if (tokenVec.size() <= starting) return left;
+    Token t = tokenVec.at(starting++);
+
+    while(true) {
+        switch(t.getTokenType()) {
+            case Token::BAND:
+            {
+                TreeNode* parent = new TreeNode("&&");
+                parent->addChild(left);
+                left->setParent(parent);
+                
+                TreeNode* right = comparison(tokenVec, starting);
+                parent->addChild(right);
+                right->setParent(parent);
+                
+                left = parent;
+                t = tokenVec.at(starting++);
+                break; // it'll work like continue; b/c of switch stmt
+            }
+            default:
+                starting--; // pushbackToken
+                return left;
+        }
+    }
+}
+// If "(", then call condition() to get the expression inside parentheses and hope the following token is a right parenthesis.
+// For other cases, get two more tokens and make a new node as a condition, then return it
+TreeNode* Tree::comparison(vector<Token> tokenVec, int& starting) {
+    Token t = tokenVec.at(starting++);
+
+    while(true) {
+        switch(t.getTokenType()) {
+            case Token::LEFTPAREN:
+            {
+                TreeNode* newCond = condition(tokenVec, starting);
+                t = tokenVec.at(starting++);
+                
+                if (t.getTokenType() != Token::RIGHTPAREN) {
+                    cerr << "')' expected" << endl;
+                }
+                return newCond;
+            }
+            default:
+                Token op = tokenVec.at(starting++);
+                Token op2 = tokenVec.at(starting++);
+
+                return new Condition (t.getValue(), op.getValue(), op2.getValue(), true);
+        }
+    }
+}
+
 bool Tree::evalCond(Tuple* tuple, Condition* condition, vector<Attribute*> attributes) {
-    // 3rd arg: vector<Attribute*> attributes OR Relation* the_relation
     
     int att_index = -1;
     bool isInteger = false;
+    
+    // Finding the index to use for the tuple from attribute list/vector
     for (int i=0; i< attributes.size(); i++) {
 
         if (toUpper(attributes.at(i)->getName()) == toUpper(condition->getOp1())) {
@@ -37,15 +118,15 @@ bool Tree::evalCond(Tuple* tuple, Condition* condition, vector<Attribute*> attri
     
     string given_content = tuple->getContents().at(att_index);
     string comparing_content = condition->getOp2();
-    //cerr<< "GIVEN: " << given_content << "\tCOMPARING: " << comparing_content << endl;
     
+    // String comparison (int comparison can be done as well)
     if      (condition->getOp() == "==") return given_content == comparing_content ;
     else if (condition->getOp() == "!=") return given_content != comparing_content ;
     
     if (isInteger) {
         int given_int = -1, comparing_int = -1;
         
-        given_int = stoi (given_content);
+        given_int = stoi (given_content); // stoi should work without a problem for both
         comparing_int = stoi (condition->getOp2());
 
         if      (condition->getOp() == "<")  return given_int < comparing_int ;
@@ -59,131 +140,24 @@ bool Tree::evalCond(Tuple* tuple, Condition* condition, vector<Attribute*> attri
     return false;
 }
 
-
-/*
-condition   ::= conjunction { || conjunction }
-conjunction ::= comparison  { && comparison }
-comparison  ::= operand op operand | ( condition )
- */
-// BUILD TREE
-
-TreeNode* Tree::buildTree(vector<Token> tokenVec, int& starting) {
-    the_root = condition(tokenVec, starting);
-    return the_root;
-}
-
-TreeNode* Tree::condition(vector<Token> tokenVec, int& starting) {
-    // It may not be a function but it may have to be build manually, recursively
-    
-    TreeNode* left = conjunction(tokenVec, starting);
-
-    if (tokenVec.size() <= starting) {cerr<<"just return"; return left;}
-    Token t = tokenVec.at(starting++);
-
-    while(true) {
-        switch(t.getTokenType()) {
-            case Token::BOR: // ||
-            {
-                TreeNode* parent = new TreeNode("||");
-                parent->addChild(left);
-                left->setParent(parent);
-                
-                TreeNode* right = conjunction(tokenVec, starting);
-                parent->addChild(right);
-                right->setParent(parent);
-
-                //left |= conjunction(++index); // left || conjunction return value
-                t = tokenVec.at(starting++);
-                break; // it'll work like continue; b/c of switch stmt
-            }
-            default:
-                starting--; // pushbackToken
-                return left;
-        }
-    }
-}
-TreeNode* Tree::conjunction(vector<Token> tokenVec, int& starting) {
-    
-    TreeNode* left = comparison(tokenVec, starting);
-
-    if (tokenVec.size() <= starting) {cerr<<"just return"; return left;}
-    Token t = tokenVec.at(starting++); // in token stream class? - the first token is gotten rid from the vector
-
-    while(true) {
-        switch(t.getTokenType()) {
-            case Token::BAND:
-            {
-                TreeNode* parent = new TreeNode("&&");
-                parent->addChild(left);
-                left->setParent(parent);
-                
-                TreeNode* right = comparison(tokenVec, starting);
-                parent->addChild(right);
-                right->setParent(parent);
-                
-                //left |= conjunction(++index); // left || conjunction return value
-                t = tokenVec.at(starting++);
-                break; // it'll work like continue; b/c of switch stmt
-            }
-            default:
-                starting--; // pushbackToken
-                return left;
-        }
-    }
-}
-TreeNode* Tree::comparison(vector<Token> tokenVec, int& starting) {
-    Token t = tokenVec.at(starting++); // in token stream class? - the first token is gotten rid from the vector
-
-    while(true) {
-        switch(t.getTokenType()) {
-            case Token::LEFTPAREN:
-            {
-                TreeNode* newCond = condition(tokenVec, starting);
-                t = tokenVec.at(starting++);
-                
-                if (t.getTokenType() != ')') cerr << "')' expected" << endl;
-                return newCond;
-            }
-/*            case 'o': // operand
-            {
-                Token* op = getNextToken();
-                Token* op2 = getNextToken();
-                return new Condition (t.getValue()(), op->getValue(), op2->getValue());
-            }*/
-            default:
-                Token op = tokenVec.at(starting++);
-                Token op2 = tokenVec.at(starting++);
-
-                return new Condition (t.getValue(), op.getValue(), op2.getValue());
-                /*
-                cerr << "Primary expected" << endl;
-                return NULL;*/
-        }
-    }
-    
-}
-
 bool Tree::evalTree(Tuple* tuple, vector<Attribute*> atts, TreeNode* parent) {
     
     if (parent == NULL) parent = the_root;
-    cerr << "ET: " << parent->getOp() << "_" << parent->getChildren().size() << endl;
+
     TreeNode* current;
     int index = 0; // index for children
-    bool isLeaf = false;
-    if (parent->getChildren().size() == 0) {
+    
+    if (parent->getChildren().size() == 0) { // current is leaf
         current = parent;
-        isLeaf = true;
-        Condition* currCond = (Condition*)current;
-        bool returned = (isLeaf)? evalCond(tuple, currCond, atts): evalTree(tuple, atts, current);
-        return returned;
+
+        return evalCond(tuple, (Condition*)current, atts);
     }
     else {
         current = parent->getChild(index); // first child
-        isLeaf = isNodeLeaf(current); // True if the child is a leaf
         
         // leftmost leaf or Node
-        Condition* currCond = (Condition*)current;
-        bool returned = (isLeaf)? evalCond(tuple, currCond, atts): evalTree(tuple, atts, current);
+        bool returned = (current->getIsLeaf())?
+            evalCond(tuple, (Condition*)current, atts): evalTree(tuple, atts, current);
 
         // Rest of the Nodes (which some or all of them can be leaves)
         while(true) {
@@ -197,9 +171,8 @@ bool Tree::evalTree(Tuple* tuple, vector<Attribute*> atts, TreeNode* parent) {
             // evaluate next leaf
             current = parent->getChild(++index);
 
-            isLeaf = isNodeLeaf(current); // True if the child is a leaf
-            Condition* currCond = (Condition*)current;
-            bool temp = (isLeaf)? evalCond(tuple, currCond, atts): evalTree(tuple, atts, current);
+            bool temp = (current->getIsLeaf())?
+                evalCond(tuple, (Condition*)current, atts): evalTree(tuple, atts, current);
             
             // save current condition evaluation result: returned || temp or returned && temp
             if      (parent->op=="||") returned |= temp;

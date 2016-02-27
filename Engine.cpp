@@ -229,37 +229,29 @@ void Engine::updateTuple
 (Relation* relation, int attributeIndex, Tuple* tuple, string newData){
 	tuple->changeContent(attributeIndex, newData);
 }
-Relation* Engine::select(string relation, vector<string> attributeNames, Tree* tree) {
+Relation* Engine::select(string relation, vector<Attribute*> the_attributes, Tree* tree) {
 	/* party = "Republican" 
 	OR Years > 3 
 	OR Name In USRepTable (== EXISTS (USREP)) 
 	OR Party = ANY (CurrentPTable) 
 	OR Years > All (YearTABLE) */
-	
-	// The Ideal data structure for Conditions will be tree
     
     int relation_index = findRelation (relation);
     if (relation_index == -1) return nullptr;
 
     Relation* given_relation = relations.at(relation_index);
     
-    // Filling Up Attributes For the_relation
-    vector<Attribute*> given_attributes = given_relation->getAttributes();
-    vector<int>        attribute_indices; // Which attribute/column to save
-    vector<Attribute*> the_attributes = findAttributes(relation, attributeNames, attribute_indices);
-    
     Relation* the_relation = new Relation("Relation from SELECT command", the_attributes);
 
-    // Filling Up Tuples For the_relation
+    vector<Attribute*> given_attributes = given_relation->getAttributes();
     vector<Tuple*> given_tuples = given_relation->getTuples();
-//    vector<int> tuple_indices; // Which tuple/row to save
     
     // fill up vector<Tuple*> the_tuples for the_relation under vector<Attribute*> the_attributes
     for (int i=0; i< given_tuples.size(); i++) {
         // Outer Loop goes through every tuple/row
         Tuple* a_tuple = given_tuples.at(i);
         
-        if (tree->evalTree(a_tuple, given_attributes, NULL))
+        if (tree->evalTree(a_tuple, given_attributes, NULL)) // evaluated as true, then add
             the_relation->addTuple(a_tuple);
     }
 

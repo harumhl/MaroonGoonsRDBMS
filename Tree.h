@@ -14,7 +14,6 @@ class Tree {
     public:
     Tree() {}
   
-    bool isNodeLeaf(TreeNode* node);
     TreeNode* buildTree(vector<Token> tokenVec, int& starting);
     TreeNode* condition(vector<Token> tokenVec, int& starting);
     TreeNode* conjunction(vector<Token> tokenVec, int& starting);

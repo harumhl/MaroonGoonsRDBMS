@@ -14,6 +14,7 @@ class TreeNode {
     vector<TreeNode*> getChildren() { return children; }
     TreeNode* getChild(int i) { return children.at(i); }
     string getOp() { return op; }
+    bool getIsLeaf() { return isLeaf; }
     
     void setParent(TreeNode* p) { parent = p; }
     void setChildren(vector<TreeNode*> c) { children = c; }
@@ -24,5 +25,6 @@ class TreeNode {
   TreeNode* parent;         // null if root
   vector<TreeNode*> children;
   string op;                // &&, ||
+    bool isLeaf = false;
 };
 #endif

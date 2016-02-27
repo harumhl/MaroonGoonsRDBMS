@@ -14,7 +14,8 @@
 class Condition: public TreeNode {
   public:
     Condition() {}
-    Condition(string o1, string o, string o2): operand1(o1), operand2(o2) { TreeNode::setOp(o); }
+    Condition(string o1, string o, string o2, bool isLeaf = true): operand1(o1), operand2(o2) {
+        TreeNode::setOp(o); TreeNode::isLeaf = true; }
     
     void setOp1 (string str) { operand1 = str; }
     void setOp2 (string str) { operand2 = str; }
