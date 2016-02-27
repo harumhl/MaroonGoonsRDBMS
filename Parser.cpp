@@ -11,7 +11,12 @@ vector<Token> Parser::splitInput(string query)
 {
   
   	iter = query.begin();
-  	string parsedText = ""; 
+  	string parsedText = "";
+  	//for(int g = 0 ; g < tokens.size(); g++){
+  	//	tokens.pop_back();
+  	//}
+  	tokens.clear();
+  	cout << "tokens size" << tokens.size() << endl;
 
     while( iter != query.end())
   	{

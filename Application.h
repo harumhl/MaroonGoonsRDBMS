@@ -8,9 +8,5 @@ class Application {
   public:
     Application() {}
     void mainMenu();
-    void viewLeagues();
-    void viewTeams();
-    void viewPlayers();
-    void addTeam();
 };
 #endif
