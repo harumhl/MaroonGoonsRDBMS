@@ -95,7 +95,7 @@ vector<Token> Parser::splitInput(string query, vector<int>& conditions)
                 conditions.push_back(tokens.size()+1);
                 tokens.push_back(recognizeToken("("));
             }
-            if (iter+1 == query.end()) {
+            if (iter == query.end()) {
                 tokens.push_back(recognizeToken(")"));
             }
             
