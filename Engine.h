@@ -41,11 +41,11 @@ class Engine {
     //helper functions
     bool    tupleExists(Relation* relation, Tuple* tuple);
     void    changeRelationName (int relation_index, string relation);
-    string  relationName(int index);
+    string  relationName(int relation_index);
     int     findRelation (string relation); // returns the index in relations
-    Relation* getRelation(int i) { return relations.at(i); }
-    vector<pair<int,int>> attributesInBoth(string relation1, string relation2);
-    vector<pair<int,int>> tuplesInBoth(string relation1, string relation2, string searchData);
+    Relation* getRelation(int relation_index);
+    vector<pair<int,int>> findSameAttributes (string relation1, string relation2);
+    vector<pair<int,int>> tuplesInBoth(string rel1, string rel2, vector<string> searchData);
     
  private:
     vector<Relation*> relations;
@@ -58,9 +58,8 @@ class Engine {
     string          trimString (string str);
     string          toUpper (string str); // for Type type
     bool            isUnionCompatible (string relation1, string relation2);
-    bool            testCondition (string relation, Tuple* tuple, Condition* condition);
 
-    vector<Attribute*> findAttributes(string relation, vector<string> attributeNames, vector<int>& attribute_indices);
+    vector<Attribute*> findAttributes(string rel, vector<string> attNames, vector<int>& att_index);
 
 };
 
