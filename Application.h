@@ -7,6 +7,6 @@
 class Application {
   public:
     Application() {}
-    void MainMenu();
+    void mainMenu();
 };
 #endif
