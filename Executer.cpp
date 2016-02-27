@@ -7,7 +7,7 @@ void Executer::execute(Engine* eng, vector<Token> tokenVec){
 	tokens = tokenVec;
 	currentIndex = 0;
 	engine = eng;
-    setToken();
+	setToken();
 	program();
 }
 void Executer::program(){
@@ -20,40 +20,38 @@ void Executer::command(){
 	Relation* relation;
 	switch(token.getTokenType())
     	{
-            case Token::EXIT:
-                engine->exit_();
-                break;
-            case Token::WRITE:
-                expect(Token::IDENTIFIER); // might need to change like SHOW
-                engine->write(token.getValue());
-                break;
-            case Token::OPEN:
-                expect(Token::IDENTIFIER);
-                engine->open(token.getValue());
-                break;
-            case Token::SHOW:
-                nextToken();
-                relation = atomicExpr();
-                engine->show(relation->getName());
-                break;
-            case Token::CLOSE:
-                nextToken(); // might need to change like WRITE
-                engine->close(token.getValue());
-                break;
-                /*
-            case Token::DELETE:
-                deleteRows();
-                break;
-            case Token::UPDATE:
-                update();
-                break;*/
-            case Token::CREATE:
-                create();
-                break;
-            case Token::INSERT: // insert a tuple
-                insert();
-                break;
-            // default:
+        	case Token::EXIT:
+        		engine->exit_();
+        		break;
+        	case Token::WRITE:
+        	   	expect(Token::IDENTIFIER);
+        	    	engine->write(token.getValue());
+        	    	break;
+        	case Token::OPEN:
+        	    	expect(Token::IDENTIFIER);
+        	    	engine->open(token.getValue());
+        	    	break;
+        	case Token::SHOW:
+        		nextToken();
+        	    	relation = atomicExpr();
+        	    	engine->show(relation->getName());
+        	    	break;
+        	case Token::CLOSE:
+        	    	nextToken();
+        	    	engine->close(token.getValue());
+        	    	break;
+        	case Token::DELETE:
+        	    	delete_();
+        	    	break;
+        	/*case Token::UPDATE:
+        	    	update();
+        	    	break;*/
+        	case Token::CREATE:
+        	    	create();
+        	    	break;
+        	case Token::INSERT:
+        	    	insert();
+        	    	break;
 	}
 }
 
@@ -121,6 +119,7 @@ void Executer::create(){
 
 	// Read in the attributes and types
 	expect(Token::LEFTPAREN);
+	cout << "first expect" << endl;
 
 	nextToken();
 	vector<Attribute*> attributes;
@@ -154,21 +153,26 @@ void Executer::create(){
 
 		Attribute* attribute;
 		if(type == Attribute::VARCHAR)
-		{
+		{/*
 			int size;
 			expect(Token::LEFTPAREN);
+			//cout << "I think it fails here" << endl;
 			expect(Token::NUMBER);
+			//cout << "or here" << endl;
 			size = token.getNumValue();
 			expect(Token::RIGHTPAREN);
+*/
+			attribute = new Attribute(type, name);
 
-			attribute = new Attribute(type, name, false, size);
 		}
 		else
 		{
 			attribute = new Attribute(type, name);
+			//cout << name << "has been created" << endl;
 		}
 
 		attributes.push_back(attribute);
+		cout << "attribute " << name << "has been created" << endl;
 
 		if( ! lookAhead(Token::RIGHTPAREN))
 		{
@@ -185,6 +189,12 @@ void Executer::create(){
 
 }
 
+void Executer::delete_(){
+	expect(Token::FROM);
+	expect(Token::IDENTIFIER);
+	string relationName = token.getValue();
+	expect(Token::WHERE);
+}
 
 void Executer::query(){
 	cout << "query branch taken" << endl;
@@ -201,14 +211,14 @@ void Executer::query(){
 }
 
 void Executer::setToken(){
-	token = tokens.at(currentIndex);
+	token = tokens[currentIndex];
 }
 void Executer::nextToken(){
 	bool endCheck = atEnd();
 	if(endCheck == true)
 		cerr << "sorry we are at the end of the vector of tokens" << endl;
 	currentIndex ++;
-	token = tokens.at(currentIndex);
+	token = tokens[currentIndex];
 }
 bool Executer::atEnd(){
 	return (currentIndex == tokens.size()-1);
@@ -286,11 +296,16 @@ Relation* Executer::combine(Relation* relation){
 }
 
 void Executer::expect(Token::TokenTypes type){
-	if(tokens.at(currentIndex+1).getTokenType() == type){
+	string typestr[47] = {"FROM", "SEMICOLON", "LEFTPAREN", "RIGHTPAREN", "COMMA", "EQUALSIGN",
+			"LEFTBRACE", "RIGHTBRACE", "LEFTARROW", "TABLE", "PRIMARY", "KEY", "SET", "NUMBER",
+			"INTO", "UPDATE", "INSERT", "VALUES", "RELATION", "DELETE", "WHERE", "VARCHAR", "INTEGER", "ENUM",
+            "CLOSE", "WRITE", "EXIT", "SHOW", "CREATE", "PKEY", "UNION", "DIFF", "PRODUCT", "OPEN",
+            "GEQ", "LITERAL", "PROJECT", "RENAME", "IDENTIFIER", "SELECT", "EQ", "NEQ", "LT", "GT", "LEQ", "BOR", "BAND"};
+	if(tokens[currentIndex+1].getTokenType() == type){
 		nextToken();
 	}
 	else
-		cerr << "Sorry, expected different token type" << endl;
+		cout << "Sorry expected A "<< typestr[type] << " token type at index " << currentIndex << endl;
 }
 
 bool Executer::lookAhead(Token::TokenTypes type){

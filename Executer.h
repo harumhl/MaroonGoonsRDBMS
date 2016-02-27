@@ -11,19 +11,17 @@ class Executer {
   public:
 	Executer() {}
     void execute(Engine* engine, vector<Token> workToDo);
-    
     void start();
     void program();
     void command();
     void query();
     void create();
-    
+    void delete_();
     Relation* expr();
     Relation* atomicExpr();
     Relation* rename();
     Relation* project();
     Relation* combine(Relation* relation);
-    
     vector<Attribute*> getAttributeList();
     void expect(Token::TokenTypes type);
     void nextToken();
