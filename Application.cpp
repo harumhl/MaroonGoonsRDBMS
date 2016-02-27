@@ -1,5 +1,6 @@
 #include "Relation.h"
 #include "Tuple.h"
+#include "Application.h"
 
 #include <stdio.h>
 #include <stdlib.h>
