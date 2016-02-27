@@ -7,7 +7,7 @@ void Executer::execute(Engine* eng, vector<Token> tokenVec){
 	tokens = tokenVec;
 	currentIndex = 0;
 	engine = eng;
-	setToken();
+    setToken();
 	program();
 }
 void Executer::program(){
@@ -20,38 +20,40 @@ void Executer::command(){
 	Relation* relation;
 	switch(token.getTokenType())
     	{
-        	case Token::EXIT:
-        		engine->exit_();
-        		break;
-        	case Token::WRITE:
-        	   	expect(Token::IDENTIFIER);
-        	    	engine->write(token.getValue());
-        	    	break;
-        	case Token::OPEN:
-        	    	expect(Token::IDENTIFIER);
-        	    	engine->open(token.getValue());
-        	    	break;
-        	case Token::SHOW:
-        		nextToken();
-        	    	relation = atomicExpr();
-        	    	engine->show(relation->getName());
-        	    	break;
-        	case Token::CLOSE:
-        	    	nextToken();
-        	    	engine->close(token.getValue());
-        	    	break;
-        	/*case Token::DELETE:
-        	    	deleteRows();
-        	    	break;
-        	case Token::UPDATE:
-        	    	update();
-        	    	break;*/
-        	case Token::CREATE:
-        	    	create();
-        	    	break;
-        	case Token::INSERT:
-        	    	insert();
-        	    	break;
+            case Token::EXIT:
+                engine->exit_();
+                break;
+            case Token::WRITE:
+                expect(Token::IDENTIFIER); // might need to change like SHOW
+                engine->write(token.getValue());
+                break;
+            case Token::OPEN:
+                expect(Token::IDENTIFIER);
+                engine->open(token.getValue());
+                break;
+            case Token::SHOW:
+                nextToken();
+                relation = atomicExpr();
+                engine->show(relation->getName());
+                break;
+            case Token::CLOSE:
+                nextToken(); // might need to change like WRITE
+                engine->close(token.getValue());
+                break;
+                /*
+            case Token::DELETE:
+                deleteRows();
+                break;
+            case Token::UPDATE:
+                update();
+                break;*/
+            case Token::CREATE:
+                create();
+                break;
+            case Token::INSERT: // insert a tuple
+                insert();
+                break;
+            // default:
 	}
 }
 
@@ -199,14 +201,14 @@ void Executer::query(){
 }
 
 void Executer::setToken(){
-	token = tokens[currentIndex];
+	token = tokens.at(currentIndex);
 }
 void Executer::nextToken(){
 	bool endCheck = atEnd();
 	if(endCheck == true)
 		cerr << "sorry we are at the end of the vector of tokens" << endl;
 	currentIndex ++;
-	token = tokens[currentIndex];
+	token = tokens.at(currentIndex);
 }
 bool Executer::atEnd(){
 	return (currentIndex == tokens.size()-1);
@@ -284,11 +286,11 @@ Relation* Executer::combine(Relation* relation){
 }
 
 void Executer::expect(Token::TokenTypes type){
-	if(tokens[currentIndex+1].getTokenType() == type){
+	if(tokens.at(currentIndex+1).getTokenType() == type){
 		nextToken();
 	}
 	else
-		cerr << "Sorry expected different token type" << endl;
+		cerr << "Sorry, expected different token type" << endl;
 }
 
 bool Executer::lookAhead(Token::TokenTypes type){
