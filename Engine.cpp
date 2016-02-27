@@ -437,7 +437,7 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 	
     // vector of pairs of indices for matching attributes: (x,y) = (relation1, relation2)
-	vector<pair<int,int>> matchingColumns = findSameAttributes (relation1, relation2);
+	vector< pair<int,int> > matchingColumns = findSameAttributes (relation1, relation2);
 
     if(matchingColumns.size() == 0){
         cerr << "Error, these relations cannot be joined (no same attribute)" << endl;
@@ -512,7 +512,7 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 
     // Now we are going to put tuples together
     
-    vector<pair<int,int>> commonTuples = tuplesInBoth(relation1, relation2, commonAtts);
+    vector< pair<int,int> > commonTuples = tuplesInBoth(relation1, relation2, commonAtts);
 
     // Finding every two tuples where the contents match for matching attributes
 	for(int j = 0; j < commonTuples.size(); j++){
@@ -585,7 +585,7 @@ Relation* Engine::getRelation(int relation_index) {
     return relations.at(relation_index);
 }
 
-vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relation2){
+vector< pair<int,int> > Engine::findSameAttributes (string relation1, string relation2){
     // No error checking since the caller function should have done so already
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
@@ -594,7 +594,7 @@ vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relat
 	vector<Attribute*> attributes2 = relations.at(relation2_index)->getAttributes();
     
 	pair<int, int> indices;
-	vector<pair<int,int>> matchingColumns;
+	vector< pair<int,int> > matchingColumns;
     
     // Iterating through attribute1 vector
 	for(int i = 0; i< attributes1.size();i++){
@@ -610,7 +610,7 @@ vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relat
 	}
 	return matchingColumns;
 }
-vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, vector<string> commonAtts){
+vector< pair<int,int> > Engine::tuplesInBoth(string relation1, string relation2, vector<string> commonAtts){
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
     
@@ -623,7 +623,7 @@ vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, v
     int attribute1index = relation_1->findAttribute(commonAtts.at(0));
     int attribute2index = relation_2->findAttribute(commonAtts.at(0));
     
-	vector<pair<int,int>> matches;
+	vector< pair<int,int> > matches;
     
     // We want to pick those tuples that string values are same for given attributes (commonAtts)
     
