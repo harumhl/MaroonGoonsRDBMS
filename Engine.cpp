@@ -298,9 +298,11 @@ Relation* Engine::project(string relation, vector<Attribute*> attributes){
 Relation* Engine::union_(string relation1, string relation2){
     if(isUnionCompatible(relation1, relation2) == false){
 		cerr << "Error! Can't take the union of two non-union-compatible relations";
+        return nullptr;
 	}
 	int relation1_index = findRelation(relation1);
 	int relation2_index = findRelation(relation2);
+    
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 	
 	Relation* relation_1 = relations.at(relation1_index);
@@ -311,14 +313,20 @@ Relation* Engine::union_(string relation1, string relation2){
 
 	vector<Tuple*> tuples1 = relation_1->getTuples();
 	vector<Tuple*> tuples2 = relation_2->getTuples();
-	string name = "Union";
-	Relation* union_relation = new Relation(name, attributes1);
-	for(int i = 0; i < tuples1.size(); i++){
-		Tuple* tuple = relations.at(relation1_index)->getTuple(i);
+
+    Relation* union_relation = new Relation("Union", attributes1);
+    
+    // Adding all tuples from relation1
+    union_relation->setTuples( relation_1->getTuples() );
+    
+    /*for(int i = 0; i < tuples1.size(); i++){
+		Tuple* tuple = relation_1->getTuple(i);
 		union_relation->addTuple(tuple);
-	}
+	}*/
+    // Adding tuples from relation2 if not already added by relation1
 	for(int j = 0; j < tuples2.size(); j++){
-		Tuple* tuple = relations.at(relation2_index)->getTuple(j);
+		Tuple* tuple = relation_2->getTuple(j);
+        
 		if(tupleExists(union_relation, tuple) == false){
 			union_relation->addTuple(tuple);
 		}
@@ -328,10 +336,12 @@ Relation* Engine::union_(string relation1, string relation2){
 Relation* Engine::difference(string relation1, string relation2){
 	if(isUnionCompatible(relation1, relation2) == false){
 		cerr << "Error! Can't take the differnece of a two non-union-compatible relations";
+        return nullptr;
 	}
 
 	int relation1_index = findRelation(relation1);
 	int relation2_index = findRelation(relation2);
+    
     if (relation1_index == -1 || relation2_index == -1) return nullptr;
 
 	Relation* relation_1 = relations.at(relation1_index);
@@ -343,19 +353,24 @@ Relation* Engine::difference(string relation1, string relation2){
 	vector<Tuple*> tuples1 = relation_1->getTuples();
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 
-	string name = "Difference";
-	Relation* differenceRelation = new Relation( name, attributes1);
+	Relation* differenceRelation = new Relation( "Difference", attributes1);
 
-	for(int i = 0; i < tuples1.size(); i++){
-		Tuple* tuple = relations.at(relation1_index)->getTuple(i);
-		differenceRelation->addTuple(tuple);
-	}
+    // Adding all tuples from relation1
+    differenceRelation->setTuples( relation_1->getTuples() );
 
-	for(int j = 0; j < tuples2.size(); j++){
-		Tuple* tempTuple = relations.at(relation2_index)->getTuple(j);
-		if(tupleExists(differenceRelation, tempTuple))
-			deleteTuple(differenceRelation->getName(), j);
-	}
+    // Deleting tuples from relation1 if duplicate is found in relation2
+	for(int i = 0; i < tuples2.size(); i++){ // Iterating through relation2
+		Tuple* tuple = relation_2->getTuple(i);
+        
+        // Iterating through differenceRelation (which contains relation1) to find duplicate
+        for(int j = 0; j < differenceRelation->getTuples().size(); j++){
+            Tuple* tupleCheck = differenceRelation->getTuple(j);
+            
+            if(tupleCheck->getContents() == tuple->getContents()) {
+                differenceRelation->removeTuple(j);
+            }
+        }
+    }
 	return differenceRelation;
 }
 Relation* Engine::crossProduct(string relation1, string relation2) {
@@ -484,7 +499,7 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 	}
 
 	Relation* the_joined_relation = new Relation("joinedRelation", the_attributes);
-	the_joined_relation->setTuple(theTuples);
+	the_joined_relation->setTuples(theTuples);
 	relations.push_back(the_joined_relation);
 	return the_joined_relation;
 }

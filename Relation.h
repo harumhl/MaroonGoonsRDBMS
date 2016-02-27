@@ -23,7 +23,7 @@ class Relation {
     // Setters
     void setName (string newName) { name = newName; }
     void setAttributes(vector<Attribute*> av) { attributes = av; }
-    void setTuple(vector<Tuple*> tv) { tuples = tv; }
+    void setTuples(vector<Tuple*> tv) { tuples = tv; }
     
     // Add or Remove tuples
     void addTuple(Tuple* t) { tuples.push_back(t); }
