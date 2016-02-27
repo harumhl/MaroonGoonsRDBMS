@@ -7,5 +7,6 @@
 class Application {
   public:
     Application() {}
+    void MainMenu();
 };
 #endif
