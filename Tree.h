@@ -14,7 +14,7 @@ class Tree {
     public:
     Tree() {}
   
-    TreeNode* buildTree(vector<Token> tokenVec, int& starting);
+    TreeNode* buildTree(vector<Token> tokenVec, int starting);
     TreeNode* condition(vector<Token> tokenVec, int& starting);
     TreeNode* conjunction(vector<Token> tokenVec, int& starting);
     TreeNode* comparison(vector<Token> tokenVec, int& starting);

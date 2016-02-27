@@ -7,7 +7,7 @@
 #include "Parser.h"
 using namespace std;
 
-vector<Token> Parser::splitInput(string query, vector<int>& conditions)
+vector<Token> Parser::splitInput(string query)
 {
   
   	iter = query.begin();
@@ -96,6 +96,7 @@ vector<Token> Parser::splitInput(string query, vector<int>& conditions)
                 tokens.push_back(recognizeToken("("));
             }
             if (iter == query.end()) {
+                conditions.push_back(-1);
                 tokens.push_back(recognizeToken(")"));
             }
             

@@ -3,7 +3,7 @@
 #include "Token.h"
 using namespace std;
 
-TreeNode* Tree::buildTree(vector<Token> tokenVec, int& starting) {
+TreeNode* Tree::buildTree(vector<Token> tokenVec, int starting) {
     the_root = condition(tokenVec, starting);
     return the_root;
 }

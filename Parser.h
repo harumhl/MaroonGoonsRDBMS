@@ -15,12 +15,14 @@ class Parser{
     Parser(string query) : query(query) {currentIndex = 0;}
     vector<Token> getTokens(){return tokens;}
     string getQuery(){ return query; }
-    vector<Token> splitInput(string query, vector<int>& conditions);
+    vector<Token> splitInput(string query);
     Token recognizeToken(string input);
     string skipChars(int distance);
     vector< vector<Token> > getTokenVector(){ return vtokens; }
     void tokenVector(vector<Token> tokens);
 
+    vector<int> getCondition() { return conditions; }
+    int getCondition(int i) { return conditions.at(i); }
     
   private:
     string query;
@@ -30,6 +32,7 @@ class Parser{
     vector<Token> tokens;
     string symbols1[12] = {"<", ">", "{", "}", "+", "-", "*", ";", "(", ")", ",", "="};
     string symbols2[7] = {"==", "!=", "<=", ">=", "<-", "||", "&&"};
+    vector<int> conditions; // Keeps starting index positions from tokens for generating condition tree
     
     void setToken();
     void increment();
