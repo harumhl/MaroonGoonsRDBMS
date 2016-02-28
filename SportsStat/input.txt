@@ -1,0 +1,6 @@
+input.txt
+Animal|String, Number|Integer, Country|String
+Tiger, 12345678, America
+Cat, 23456789, Italy
+Cattle, 34567890, Brazil
+Horse, 45678901, England
