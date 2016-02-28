@@ -1,0 +1,7 @@
+nuggets
+Name|String, Number|Integer, Position|String
+Kenneth Faried, 35, PF
+Nikola Jokic, 15, C
+Danilo Gallinari, 8, SF
+Gary Harris, 14, SG
+Emmanuel Mudiay, 0, PG
