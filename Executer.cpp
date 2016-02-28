@@ -178,13 +178,16 @@ void Executer::create(){
 		{
 			expect(Token::COMMA);
 		}
+		cout << "boyakah" << currentIndex << endl;
 		nextToken();
+		cout << "you was wrong nigga" << currentIndex << endl;
 	}
 
 	expect(Token::PRIMARY);
 	expect(Token::KEY);
 
 	vector<Attribute*> keys = getAttributeList();
+	cout << "now we cookin boi" << endl;
 	engine-> createRelation(relationName, attributes);
 
 }
@@ -192,8 +195,11 @@ void Executer::create(){
 void Executer::delete_(){
 	expect(Token::FROM);
 	expect(Token::IDENTIFIER);
+	cout << "geting our rel" << endl;
 	string relationName = token.getValue();
 	expect(Token::WHERE);
+	int recurIndex = currentIndex+1;
+	cout << "the where starts at " << recurIndex << endl;
 }
 
 void Executer::query(){
@@ -216,7 +222,7 @@ void Executer::setToken(){
 void Executer::nextToken(){
 	bool endCheck = atEnd();
 	if(endCheck == true)
-		cerr << "sorry we are at the end of the vector of tokens" << endl;
+		cerr << "sorry we are at the end of the vector of tokens @index" << currentIndex << endl;
 	currentIndex ++;
 	token = tokens[currentIndex];
 }
@@ -272,7 +278,10 @@ vector<Attribute*> Executer::getAttributeList(){
 			nextToken();
 	}
 	//now we should be left with right paren
+	//if(lookAhead)
+	cout << "This is where it breaks" << endl;
 	nextToken();
+	cout << "ayy nigga we made it" << endl;
 	return attList;
 }
 Relation* Executer::combine(Relation* relation){
