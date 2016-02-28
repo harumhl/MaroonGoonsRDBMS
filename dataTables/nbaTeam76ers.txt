@@ -1,0 +1,7 @@
+76ers
+Name|String, Number|Integer, Position|String
+Nerlens Noel, 4, PF
+Jahlil Okafor, 8, C
+Robert Covington, 33, SF
+Nik Stauskas, 11, SG
+Ish Smith, 1, PG
