@@ -1,0 +1,7 @@
+kings
+Name|String, Number|Integer, Position|String
+Willie Stein, 00, PF
+DeMarcus Cousins, 15, C
+Rudy Gay, 8, SF
+Marco Belinelli, 3, SG
+Rajon Rondo, 9, PG
