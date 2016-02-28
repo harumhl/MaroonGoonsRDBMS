@@ -1,0 +1,7 @@
+pacers
+Name|String, Number|Integer, Position|String
+Myles Turner, 33, PF
+Ian Mahinmi, 28, C
+Paul George, 13, SF
+Monta Ellis, 11, SG
+George Hill, 27, PG
