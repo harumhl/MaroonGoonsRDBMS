@@ -198,6 +198,14 @@ void Executer::delete_(){
 	cout << "the where starts at " << recurIndex << endl;
 }
 
+void Executer::write(){
+
+}
+
+void Executer::close(){
+
+}
+
 void Executer::query(){
 	cout << "query branch taken" << endl;
 	string relationName = token.getValue();
