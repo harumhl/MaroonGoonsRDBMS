@@ -1,0 +1,17 @@
+warriors
+Name|String, Number|Integer, Position|String
+Stephen Curry, 30, PG
+Harrison Barnes, 40, SF
+Andrew Bogut, 12, C
+Draymond Green, 23, PF
+Klay Thompson, 11, SG
+Shaun Livingston, 34, PG
+Leandro Barbosa, 19, PG
+Brandon Rush, 4, SG
+Ian Clark, 21, SG
+Andre Iguodala, 9, SF
+Kevon Looney, 36, SF
+Marreese Speights, 5, PF
+James McAdoo, 20, PF
+Anderson Varejao, 18, C 
+Festus Ezeli, 31, C
