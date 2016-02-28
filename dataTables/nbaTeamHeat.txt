@@ -1,0 +1,7 @@
+heat
+Name|String, Number|Integer, Position|String
+Josh McRoberts, 4, PF
+Hassan Whiteside, 21, C
+Luol Deng, 9, SF
+Dwayne Wade, 3, SG
+Goran Dragic, 7, PG
