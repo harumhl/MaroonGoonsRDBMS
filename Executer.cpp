@@ -178,16 +178,13 @@ void Executer::create(){
 		{
 			expect(Token::COMMA);
 		}
-		cout << "boyakah" << currentIndex << endl;
 		nextToken();
-		cout << "you was wrong nigga" << currentIndex << endl;
 	}
 
 	expect(Token::PRIMARY);
 	expect(Token::KEY);
 
 	vector<Attribute*> keys = getAttributeList();
-	cout << "now we cookin boi" << endl;
 	engine-> createRelation(relationName, attributes);
 
 }
@@ -195,7 +192,6 @@ void Executer::create(){
 void Executer::delete_(){
 	expect(Token::FROM);
 	expect(Token::IDENTIFIER);
-	cout << "geting our rel" << endl;
 	string relationName = token.getValue();
 	expect(Token::WHERE);
 	int recurIndex = currentIndex+1;
@@ -279,9 +275,7 @@ vector<Attribute*> Executer::getAttributeList(){
 	}
 	//now we should be left with right paren
 	//if(lookAhead)
-	cout << "This is where it breaks" << endl;
 	nextToken();
-	cout << "ayy nigga we made it" << endl;
 	return attList;
 }
 Relation* Executer::combine(Relation* relation){
