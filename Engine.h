@@ -39,13 +39,14 @@ class Engine {
     
     
     //helper functions
+    int     getNumRelations() { return relations.size(); }
     bool    tupleExists(Relation* relation, Tuple* tuple);
     void    changeRelationName (int relation_index, string relation);
     string  relationName(int relation_index);
     int     findRelation (string relation); // returns the index in relations
     Relation* getRelation(int relation_index);
-    vector<pair<int,int>> findSameAttributes (string relation1, string relation2);
-    vector<pair<int,int>> tuplesInBoth(string rel1, string rel2, vector<string> searchData);
+    vector< pair<int,int> > findSameAttributes (string relation1, string relation2);
+    vector< pair<int,int> > tuplesInBoth(string rel1, string rel2, vector<string> searchData);
     
  private:
     vector<Relation*> relations;

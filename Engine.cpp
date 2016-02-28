@@ -237,7 +237,7 @@ Relation* Engine::select(string relation, vector<Attribute*> the_attributes, Tre
 	OR Years > All (YearTABLE) */
     
     int relation_index = findRelation (relation);
-    if (relation_index == -1) return nullptr;
+    if (relation_index == -1) return NULL;
 
     Relation* given_relation = relations.at(relation_index);
     
@@ -246,20 +246,42 @@ Relation* Engine::select(string relation, vector<Attribute*> the_attributes, Tre
     vector<Attribute*> given_attributes = given_relation->getAttributes();
     vector<Tuple*> given_tuples = given_relation->getTuples();
     
+    vector<int> attribute_indices;
+    // Getting the column indices for the tuples
+    for (int i=0; i< the_attributes.size(); i++) {
+        
+        for (int j=0; j< given_attributes.size(); j++) {
+            
+            if (the_attributes.at(i)->getName() == given_attributes.at(j)->getName()) {
+                attribute_indices.push_back(j);
+            }
+        }
+    }
+    
     // fill up vector<Tuple*> the_tuples for the_relation under vector<Attribute*> the_attributes
     for (int i=0; i< given_tuples.size(); i++) {
         // Outer Loop goes through every tuple/row
         Tuple* a_tuple = given_tuples.at(i);
         
-        if (tree->evalTree(a_tuple, given_attributes, NULL)) // evaluated as true, then add
-            the_relation->addTuple(a_tuple);
+        if (tree->evalTree(a_tuple, given_attributes, NULL)) { // evaluated as true, then add
+            
+            Tuple* new_tuple = new Tuple();
+            
+            // Getting the cell values from specific columns
+            for (int j=0; j< attribute_indices.size(); j++) {
+                string temp = a_tuple->getContent( attribute_indices.at(j) );
+                new_tuple->addContent(temp);
+            }
+            
+            the_relation->addTuple(new_tuple);
+        }
     }
 
     return the_relation;
 }
 Relation* Engine::project(string relation, vector<Attribute*> attributes){
     int relation_index = findRelation(relation);
-    if (relation_index == -1) return nullptr;
+    if (relation_index == -1) return NULL;
 
     // Creating needed variables
     Relation* theRelation = relations.at(relation_index);
@@ -295,12 +317,12 @@ Relation* Engine::project(string relation, vector<Attribute*> attributes){
 Relation* Engine::union_(string relation1, string relation2){
     if(isUnionCompatible(relation1, relation2) == false){
 		cerr << "Error! Can't take the union of two non-union-compatible relations";
-        return nullptr;
+        return NULL;
 	}
 	int relation1_index = findRelation(relation1);
 	int relation2_index = findRelation(relation2);
     
-    if (relation1_index == -1 || relation2_index == -1) return nullptr;
+    if (relation1_index == -1 || relation2_index == -1) return NULL;
 	
     // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
@@ -330,13 +352,13 @@ Relation* Engine::union_(string relation1, string relation2){
 Relation* Engine::difference(string relation1, string relation2){
 	if(isUnionCompatible(relation1, relation2) == false){
 		cerr << "Error! Can't take the differnece of a two non-union-compatible relations";
-        return nullptr;
+        return NULL;
 	}
 
 	int relation1_index = findRelation(relation1);
 	int relation2_index = findRelation(relation2);
     
-    if (relation1_index == -1 || relation2_index == -1) return nullptr;
+    if (relation1_index == -1 || relation2_index == -1) return NULL;
 
     // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
@@ -372,7 +394,7 @@ Relation* Engine::crossProduct(string relation1, string relation2) {
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
     
-    if (relation1_index == -1 || relation2_index == -1) return nullptr;
+    if (relation1_index == -1 || relation2_index == -1) return NULL;
 	
     // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
@@ -388,7 +410,7 @@ Relation* Engine::crossProduct(string relation1, string relation2) {
 	pair<int,int> sameAttributeIndex = findSameAttribute(relation1, relation2);
     if (sameAttributeIndex.first >= 0) { // Neither -1 or -99
         cerr << "Same Attributes Found For Cross Product" << endl;
-        return nullptr;
+        return NULL;
     }
 	
 	vector<Attribute*> the_attributes; 
@@ -424,7 +446,7 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
     
-    if (relation1_index == -1 || relation2_index == -1) return nullptr;
+    if (relation1_index == -1 || relation2_index == -1) return NULL;
 	
     // Creating needed variables
 	Relation* relation_1 = relations.at(relation1_index);
@@ -437,11 +459,11 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 	
     // vector of pairs of indices for matching attributes: (x,y) = (relation1, relation2)
-	vector<pair<int,int>> matchingColumns = findSameAttributes (relation1, relation2);
+	vector< pair<int,int> > matchingColumns = findSameAttributes (relation1, relation2);
 
     if(matchingColumns.size() == 0){
         cerr << "Error, these relations cannot be joined (no same attribute)" << endl;
-        return nullptr;
+        return NULL;
     }
 
     // one pair of indices for matching attributes: (x,y) = (relation1, relation2)
@@ -512,7 +534,7 @@ Relation* Engine::naturalJoin(string relation1, string relation2) {
 
     // Now we are going to put tuples together
     
-    vector<pair<int,int>> commonTuples = tuplesInBoth(relation1, relation2, commonAtts);
+    vector< pair<int,int> > commonTuples = tuplesInBoth(relation1, relation2, commonAtts);
 
     // Finding every two tuples where the contents match for matching attributes
 	for(int j = 0; j < commonTuples.size(); j++){
@@ -580,12 +602,12 @@ int Engine::findRelation (string relation) {
 Relation* Engine::getRelation(int relation_index) {
     if (relation_index >= relations.size()) {
         cerr << "Relation at Index does not exist";
-        return nullptr;
+        return NULL;
     }
     return relations.at(relation_index);
 }
 
-vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relation2){
+vector< pair<int,int> > Engine::findSameAttributes (string relation1, string relation2){
     // No error checking since the caller function should have done so already
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
@@ -594,7 +616,7 @@ vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relat
 	vector<Attribute*> attributes2 = relations.at(relation2_index)->getAttributes();
     
 	pair<int, int> indices;
-	vector<pair<int,int>> matchingColumns;
+	vector< pair<int,int> > matchingColumns;
     
     // Iterating through attribute1 vector
 	for(int i = 0; i< attributes1.size();i++){
@@ -610,7 +632,7 @@ vector<pair<int,int>> Engine::findSameAttributes (string relation1, string relat
 	}
 	return matchingColumns;
 }
-vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, vector<string> commonAtts){
+vector< pair<int,int> > Engine::tuplesInBoth(string relation1, string relation2, vector<string> commonAtts){
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
     
@@ -623,7 +645,7 @@ vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, v
     int attribute1index = relation_1->findAttribute(commonAtts.at(0));
     int attribute2index = relation_2->findAttribute(commonAtts.at(0));
     
-	vector<pair<int,int>> matches;
+	vector< pair<int,int> > matches;
     
     // We want to pick those tuples that string values are same for given attributes (commonAtts)
     
@@ -759,7 +781,7 @@ bool Engine::isUnionCompatible (string relation1, string relation2) {
 }
 vector<Attribute*> Engine::findAttributes(string relation, vector<string> attributeNames, vector<int>& attribute_indices) {
     int relation_index = findRelation (relation);
-    if (relation_index == -1) return {};
+    if (relation_index == -1) return vector<Attribute*>();
     
     Relation* the_relation = relations.at(relation_index);
     vector<Attribute*> the_attributes; //  = findAttributes(relation, attributeNames, );
