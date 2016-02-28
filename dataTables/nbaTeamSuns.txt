@@ -1,0 +1,7 @@
+suns
+Name|String, Number|Integer, Position|String
+Mirza Teletovic, 35, PF
+Tyson Chandler, 4, C
+PJ Tucker, 17, SF
+Devin Booker, 1, SG
+Ronnie Price, 14, PG
