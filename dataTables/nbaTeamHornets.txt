@@ -1,0 +1,7 @@
+hornets
+Name|String, Number|Integer, Position|String
+Marvin Williams, 2, PF
+Cody Zeller, 40, C
+Nicolas Batum, 5, SF
+Coutney Lee, 1, SG
+Kemba Walker, 15, PG
