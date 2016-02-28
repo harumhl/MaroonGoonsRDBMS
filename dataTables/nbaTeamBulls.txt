@@ -1,0 +1,7 @@
+bulls
+Name|String, Number|Integer, Position|String
+Pau Gasol, 16, C
+Taj Gibson, 22, PF
+Mike Dunleavy, 34, SF
+Derrick Rose, 1, PG
+E'Twaun Moore, 55, SG
