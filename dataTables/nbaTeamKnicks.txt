@@ -1,0 +1,7 @@
+knicks
+Name|String, Number|Integer, Position|String
+Kristaps Porzingis, 6, PF
+Robin Lopez, 8, C
+Carmelo Anthony, 7, SF
+Arron Afflalo, 4, SG
+Jose Calderon, 3, PG
