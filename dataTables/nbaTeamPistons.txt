@@ -1,0 +1,7 @@
+pistons
+Name|String, Number|Integer, Position|String
+Andre Drummond, 0, C
+Tobias Harris, 34, PF
+Marcus Morris, 13, SF
+Kentavious Pope, 5, SG
+Reggie Jackson, 1, PG
