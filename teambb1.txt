@@ -1,0 +1,7 @@
+warriors_starters
+Name|String, Number|Integer, Position|String
+Stephen Curry, 30, PG
+Harrison Barnes, 40, SF
+Andrew Bogut, 12, C
+Draymond Green, 23, PF
+Klay Thompson, 11, SG
