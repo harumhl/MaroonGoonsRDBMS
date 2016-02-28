@@ -15,27 +15,27 @@
     SOURCES += main.cpp\
             mainwindow.cpp \
         createplayer.cpp \
-        createteam.cpp \
         uniondiffprodjoin.cpp \
         displayrelation.cpp \
         openclosewriteexit.cpp \
     selectrelation.cpp \
-    projectrelation.cpp
+    projectrelation.cpp \
+    displayhelp.cpp
 
     HEADERS  += mainwindow.h \
         createplayer.h \
-        createteam.h \
         uniondiffprodjoin.h \
         displayrelation.h \
         openclosewriteexit.h \
     selectrelation.h \
-    projectrelation.h
+    projectrelation.h \
+    displayhelp.h
 
     FORMS    += mainwindow.ui \
         createplayer.ui \
-        createteam.ui \
         uniondiffprodjoin.ui \
         displayrelation.ui \
         openclosewriteexit.ui \
     selectrelation.ui \
-    projectrelation.ui
+    projectrelation.ui \
+    displayhelp.ui

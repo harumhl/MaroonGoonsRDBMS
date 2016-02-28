@@ -45,74 +45,102 @@
     <string>Enter a new player</string>
    </property>
   </widget>
-  <widget class="QLabel" name="pNameL">
+  <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>80</y>
-     <width>101</width>
-     <height>16</height>
+     <x>10</x>
+     <y>70</y>
+     <width>371</width>
+     <height>161</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Player name: </string>
+   <property name="currentIndex">
+    <number>2</number>
    </property>
-  </widget>
-  <widget class="QLineEdit" name="pNameE">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>80</y>
-     <width>211</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="pAgeL">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>110</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Player age: </string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="pAgeE">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>110</y>
-     <width>211</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="pPositionE">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>140</y>
-     <width>211</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="pPositionL">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>140</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Player position: </string>
-   </property>
+   <widget class="QWidget" name="League">
+    <attribute name="title">
+     <string>League</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="Team">
+    <attribute name="title">
+     <string>Team</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="Player">
+    <attribute name="title">
+     <string>Player</string>
+    </attribute>
+    <widget class="QLineEdit" name="pPositionE">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>70</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pNameL">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Player name: </string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="pNameE">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>10</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="pAgeE">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>40</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pPositionL">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Player position: </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pAgeL">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Player age: </string>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>

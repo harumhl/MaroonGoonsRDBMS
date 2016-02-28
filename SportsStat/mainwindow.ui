@@ -25,17 +25,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Enter a new league</string>
+      <string>Display Help</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Enter a new team</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Enter a new player</string>
+      <string>Enter a new league, team, or player</string>
      </property>
     </item>
     <item>

@@ -11,6 +11,8 @@ CreatePlayer::CreatePlayer(QWidget *parent) :
     ui(new Ui::CreatePlayer)
 {
     ui->setupUi(this);
+
+    ui->pAgeE->setValidator( new QIntValidator(0, 150, this) );
 }
 
 CreatePlayer::~CreatePlayer()
@@ -26,7 +28,7 @@ void CreatePlayer::on_buttonBox_accepted()
 
     // Player age
     QString qsAge = ui->pAgeE->text();
-    int iAge = std::stoi(qsAge.toUtf8().constData()); // what if it fails? - string given
+    int iAge = std::stoi(qsAge.toUtf8().constData()); // it won't fail
 
     MainWindow::instance().newPlayer(new Player(sName, iAge));
 }
