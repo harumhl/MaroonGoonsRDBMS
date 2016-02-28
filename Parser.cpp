@@ -12,9 +12,7 @@ vector<Token> Parser::splitInput(string query)
   
   	iter = query.begin();
   	string parsedText = "";
-  	//for(int g = 0 ; g < tokens.size(); g++){
-  	//	tokens.pop_back();
-  	//}
+    bool isWHERE = false; // if the query has "WHERE + conditions" clause
   	tokens.clear();
   	cout << "tokens size" << tokens.size() << endl;
 
@@ -99,10 +97,12 @@ vector<Token> Parser::splitInput(string query)
             if (recognized.getTokenType() == Token::TokenTypes::WHERE) {
                 conditions.push_back(tokens.size()+1);
                 tokens.push_back(recognizeToken("("));
+                isWHERE = true;
             }
             if (iter == query.end()) {
                 conditions.push_back(-1);
-                tokens.push_back(recognizeToken(")"));
+
+                if (isWHERE) tokens.push_back(recognizeToken(")"));
             }
             
 
