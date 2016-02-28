@@ -1,0 +1,7 @@
+hawks
+Name|String, Number|Integer, Position|String
+Paul Milsap, 4, PF
+Al Horford, 15, C
+Kent Bazemore, 24, SF
+Kyle Korver, 26, SG
+Jeff Teague, 0, PG
