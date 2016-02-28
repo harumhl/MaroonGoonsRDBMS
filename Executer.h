@@ -17,8 +17,6 @@ class Executer {
     void query();
     void create();
     void delete_();
-    void write();
-    void close();
     Relation* expr();
     Relation* atomicExpr();
     Relation* rename();

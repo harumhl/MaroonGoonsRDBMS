@@ -198,14 +198,6 @@ void Executer::delete_(){
 	cout << "the where starts at " << recurIndex << endl;
 }
 
-void Executer::write(){
-
-}
-
-void Executer::close(){
-
-}
-
 void Executer::query(){
 	cout << "query branch taken" << endl;
 	string relationName = token.getValue();
@@ -265,8 +257,12 @@ Relation* Executer::atomicExpr(){
         return relation;
     }
     
-    if(lookAhead(Token::UNION) || lookAhead(Token::PRODUCT) || lookAhead(Token::DIFF))
+    if(lookAhead(Token::UNION) || lookAhead(Token::PRODUCT) || lookAhead(Token::DIFF)){
         relation = combine(relation);
+        //string rname = relation->getName();
+        //cout << "Diff made a relation named " << rname << endl;
+        engine->show(relation);
+    }
     return relation;
 }
 vector<Attribute*> Executer::getAttributeList(){
