@@ -1,0 +1,7 @@
+spurs
+Name|String, Number|Integer, Position|String
+Lamarcus Aldridge, 12, PF
+Tim Duncan, 21, C
+Kawhi Leonard, 2, SF
+Danny Green, 14, SG
+Tony Parker, 9, PG
