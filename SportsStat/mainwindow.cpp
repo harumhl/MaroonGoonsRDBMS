@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "createplayer.h"
-#include "createteam.h"
 #include "uniondiffprodjoin.h"
 #include "../Player.h"
 #include "displayrelation.h"
 #include "openclosewriteexit.h"
 #include "selectrelation.h"
 #include "projectrelation.h"
+#include "displayhelp.h"
 #include <vector>
 #include <iostream>
 
@@ -29,15 +29,15 @@ void MainWindow::newPlayer(Player* cp) {
 void MainWindow::on_ExecuteButton_clicked()
 {
     ui->label->setText( ui->commandBox->currentText() ); // temp
-    if (ui->commandBox->currentText() == "Enter a new player") {
+    if (ui->commandBox->currentText() == "Display Help") {
+        DisplayHelp displayHelp;
+        displayHelp.setModal(true);
+        displayHelp.exec();
+    }
+    else if (ui->commandBox->currentText() == "Enter a new league, team, or player") {
         CreatePlayer createPlayer;
         createPlayer.setModal(true);
         createPlayer.exec();
-    }
-    else if (ui->commandBox->currentText() == "Enter a new team") {
-        CreateTeam createTeam;
-        createTeam.setModal(true);
-        createTeam.exec();
     }
     else if (ui->commandBox->currentText() == "Select a relation/table") {
         SelectRelation selectRelation;
