@@ -1,7 +1,0 @@
-wizards
-Name|String, Number|Integer, Position|String
-Jared Dudley, 1, PF
-Marcin Gortat, 13, C
-Otto Porter, 22, SF
-Garrett Temple, 17, SG
-John Wall, 2, PG
