@@ -1,6 +1,6 @@
 crystal
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Scott Dann, 26, 26, 5, 21, 8, 1, 4, 0
 Jason Puncheon, 24, 24, 0, 37, 8, 3, 3, 0
