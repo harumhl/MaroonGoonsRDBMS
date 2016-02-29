@@ -1,0 +1,12 @@
+San Jose Earthquakes
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+David Bingham, 34, 34, 0, 0, 0, 0, 3, 0
+Marvell Wynne, 33, 32, 0, 5, 1, 2, 1, 0
+Chris Wondolowski, 31, 30, 16, 91, 39, 2, 3, 0
+Victor Bernadez, 29, 29, 0, 11, 0, 1, 6, 1
+Shea Salinas, 34, 29, 3, 36, 10, 5, 2, 0
+Clarence Goodson, 28, 28, 2, 20, 7, 2, 7, 0
+Fatai Alashe, 28, 27, 2, 19, 5, 2, 5, 1
+Matias Garcia, 27, 25, 2, 31, 14, 7, 2, 2
+Sanna Nyassi, 28, 19, 2, 19, 5, 2, 6, 0
+Cordell Cato, 28, 18, 3, 18, 7, 2, 0, 0
