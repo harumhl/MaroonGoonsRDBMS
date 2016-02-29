@@ -1,0 +1,12 @@
+Houston Dynamo
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+Tyler Deric, 31, 31, 0, 0, 0, 0, 3, 0
+Ricardo Clark, 30, 30, 8, 59, 21, 1, 5, 0
+Brad Davis, 30, 29, 4, 45, 16, 10, 2, 0
+Giles Barnes, 28, 28, 7, 75, 22, 3, 5, 0
+DeMarcus Beasley, 28, 28, 1, 13, 7, 1, 1, 0
+Will Bruin, 33, 28, 11, 49, 25, 4, 2, 0
+David Horst, 32, 28, 0, 13, 2, 2, 3, 0
+Raul Rodriguez, 27, 27, 2, 13, 4, 0, 7, 1
+Luis Garrido, 29, 21, 0, 17, 2, 0, 10, 0
+Boniek Garcia, 23, 16, 3, 7, 4, 5, 2, 1
