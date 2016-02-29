@@ -1,7 +1,0 @@
-raptors
-Name|String, Number|Integer, Position|String
-Luis Scola, 4, PF
-Jonas Valanciunas, 17, C
-James Johnson, 3, SF
-DeMar DeRozan,10 , SG
-Kyle Lowry, 7, PG
