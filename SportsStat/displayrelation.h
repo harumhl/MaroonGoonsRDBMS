@@ -15,6 +15,9 @@ public:
     explicit DisplayRelation(QWidget *parent = 0);
     ~DisplayRelation();
 
+private slots:
+    void on_updateButton_clicked();
+
 private:
     Ui::DisplayRelation *ui;
 };
