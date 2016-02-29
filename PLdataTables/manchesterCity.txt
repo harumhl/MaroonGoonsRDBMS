@@ -1,6 +1,6 @@
 manchester city
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Joe Hart, 24, 24, 0, 0, 0, 0, 0, 0
 Yaya Toure, 24, 23, 5, 70, 22, 5, 3, 0
