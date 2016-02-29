@@ -59,31 +59,43 @@ void SelectRelation::on_buttonBox_accepted()
         vector<Token> attTokens = parser->splitInput(attribute);
 
         // Finding the attributes
-        for (int i=0; i< all_attributes.size(); i++) {
+        bool all_atts_found = true;
+        for (int i=0; i< attTokens.size(); i++) {
 
-            for (int j=0; j< attTokens.size(); j++) {
+            for (int j=0; j< all_attributes.size(); j++) {
 
-                if (all_attributes.at(i)->getName() == attTokens.at(j).getValue())
-                    attributes.push_back( all_attributes.at(i) );
+                if (attTokens.at(i).getValue() == all_attributes.at(j)->getName()) {
+                    attributes.push_back( all_attributes.at(j) );
+                    break;
+                }
+
+                if (j == all_attributes.size()-1) {
+                    string str = "Attribute \"" + attTokens.at(i).getValue() + "\" not found";
+                    QString errorMessage = QString::fromStdString(str);
+                    QMessageBox::information(0, "info", errorMessage);
+                    all_atts_found = false;
+                }
             }
         }
 
-        // Get WHERE clause
-        QString whereClauseQ = ui->sWhereE->text();
-        string whereClause = whereClauseQ.toUtf8().constData();
+        if (all_atts_found) {
+            // Get WHERE clause
+            QString whereClauseQ = ui->sWhereE->text();
+            string whereClause = whereClauseQ.toUtf8().constData();
 
-        // Run
-        Tree*   tree = new Tree();
+            // Run
+            Tree*   tree = new Tree();
 
-        vector<Token> tokens = parser->splitInput(whereClause);
+            vector<Token> tokens = parser->splitInput(whereClause);
 
-        tree->buildTree(tokens, 0);
+            tree->buildTree(tokens, 0);
 
-        MainWindow::instance().setRelation( engine->select(relation, attributes, tree) );
+            MainWindow::instance().setRelation( engine->select(relation, attributes, tree) );
 
-        // Display the relation
-        DisplayRelation displayRelation;
-        displayRelation.setModal(true);
-        displayRelation.exec();
+            // Display the relation
+            DisplayRelation displayRelation;
+            displayRelation.setModal(true);
+            displayRelation.exec();
+        }
     }
 }

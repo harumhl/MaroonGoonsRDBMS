@@ -52,23 +52,35 @@ void ProjectRelation::on_buttonBox_accepted()
         vector<Token> attTokens = parser->splitInput(attribute);
 
         // Finding the attributes
-        for (int i=0; i< all_attributes.size(); i++) {
+        bool all_atts_found = true;
+        for (int i=0; i< attTokens.size(); i++) {
 
-            for (int j=0; j< attTokens.size(); j++) {
+            for (int j=0; j< all_attributes.size(); j++) {
 
-                if (all_attributes.at(i)->getName() == attTokens.at(j).getValue())
-                    attributes.push_back( all_attributes.at(i) );
+                if (attTokens.at(i).getValue() == all_attributes.at(j)->getName()) {
+                    attributes.push_back( all_attributes.at(j) );
+                    break;
+                }
+
+                if (j == all_attributes.size()-1) {
+                    string str = "Attribute \"" + attTokens.at(i).getValue() + "\" not found";
+                    QString errorMessage = QString::fromStdString(str);
+                    QMessageBox::information(0, "info", errorMessage);
+                    all_atts_found = false;
+                }
             }
         }
 
-        // Run
-        Tree*   tree = new Tree();
+        if (all_atts_found) {
+            // Run
+            Tree*   tree = new Tree();
 
-        MainWindow::instance().setRelation( engine->project(relation, attributes) );
+            MainWindow::instance().setRelation( engine->project(relation, attributes) );
 
-        // Display the relation
-        DisplayRelation displayRelation;
-        displayRelation.setModal(true);
-        displayRelation.exec();
+            // Display the relation
+            DisplayRelation displayRelation;
+            displayRelation.setModal(true);
+            displayRelation.exec();
+        }
     }
 }
