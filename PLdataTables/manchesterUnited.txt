@@ -1,0 +1,14 @@
+manchester united
+
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+
+Chris Smalling 25, 25, 0, 13, 2, 1, 6, 0
+Daley Blind, 24, 24, 1, 4, 2, 1, 2, 0
+Juan Mata, 26, 23, 4, 43, 15, 3, 3, 0
+Daved De Gea, 22, 22, 0, 0, 0, 0, 0
+Wayne Rooney, 22, 21, 7, 58, 20, 4, 3, 0
+Anthony Martial, 21, 20, 7, 38, 14, 3, 1, 0
+Matteo Darmian, 21, 19, 0, 4, 0, 0, 6, 0
+Morgan Scheneiderlin, 19, 17, 1, 7, 1, 0, 3, 0
+Michael Carrick, 19, 14, 0, 6, 1, 0, 2, 0
+Bastian Schweinsteiger, 17, 13, 1, 12, 3, 0, 3, 0
