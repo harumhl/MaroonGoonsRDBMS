@@ -1,6 +1,6 @@
 stoke city
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Jack Butland, 27, 27, 0, 0, 0, 0, 0, 0
 Erik Pieters, 27, 27, 0, 4, 1, 1, 6, 0
