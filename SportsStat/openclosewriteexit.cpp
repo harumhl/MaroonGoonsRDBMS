@@ -49,13 +49,29 @@ void OpenCloseWriteExit::on_buttonBox_accepted()
         if (!file.open(QIODevice::ReadOnly)) {
             QMessageBox::information(0, "info", file.errorString());
         }
-
-        engine->open(fileName);
+        else
+            engine->open(fileName);
     }
     else if (ui->comboBox->currentText() == "Close") {
-        engine->close( filenameQ.toUtf8().constData() );
+        string relation = filenameQ.toUtf8().constData();
+        int relation_index = engine->findRelation(relation);
+
+        if (relation_index == -1) {
+            QString errorMessage = QString::fromStdString("Relation not found");
+            QMessageBox::information(0, "info", errorMessage);
+        }
+        else
+            engine->close(relation);
     }
     else if (ui->comboBox->currentText() == "Write") {
-        engine->write( filenameQ.toUtf8().constData() );
+        string relation = filenameQ.toUtf8().constData();
+        int relation_index = engine->findRelation(relation);
+
+        if (relation_index == -1) {
+            QString errorMessage = QString::fromStdString("Relation not found");
+            QMessageBox::information(0, "info", errorMessage);
+        }
+        else
+            engine->write(relation);
     }
 }

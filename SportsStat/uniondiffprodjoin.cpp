@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <QMessageBox>
 using namespace std;
 
 UnionDiffProdJoin::UnionDiffProdJoin(QWidget *parent) :
@@ -39,22 +40,29 @@ void UnionDiffProdJoin::on_buttonBox_accepted()
 
     Engine* engine = MainWindow::instance().getEngine();
 
-    // Relational Algebra computation
-    if (ui->selectionBox->currentText() == "Union") {
-        MainWindow::instance().setRelation( engine->union_(relation1, relation2) );
+    if (!engine->isUnionCompatible(relation1, relation2)) {
+        QString errorMessage = QString::fromStdString("Not Union Compatible");
+        QMessageBox::information(0, "info", errorMessage);
     }
-    else if (ui->selectionBox->currentText() == "Difference") {
-        MainWindow::instance().setRelation( engine->difference(relation1, relation2) );
-    }
-    else if (ui->selectionBox->currentText() == "Cross Product") {
-        MainWindow::instance().setRelation( engine->crossProduct(relation1, relation2) );
-    }
-    else if (ui->selectionBox->currentText() == "Natural Join") {
-        MainWindow::instance().setRelation( engine->naturalJoin(relation1, relation2) );
-    }
+    else {
 
-    // Display the relation
-    DisplayRelation displayRelation;
-    displayRelation.setModal(true);
-    displayRelation.exec();
+        // Relational Algebra computation
+        if (ui->selectionBox->currentText() == "Union") {
+            MainWindow::instance().setRelation( engine->union_(relation1, relation2) );
+        }
+        else if (ui->selectionBox->currentText() == "Difference") {
+            MainWindow::instance().setRelation( engine->difference(relation1, relation2) );
+        }
+        else if (ui->selectionBox->currentText() == "Cross Product") {
+            MainWindow::instance().setRelation( engine->crossProduct(relation1, relation2) );
+        }
+        else if (ui->selectionBox->currentText() == "Natural Join") {
+            MainWindow::instance().setRelation( engine->naturalJoin(relation1, relation2) );
+        }
+
+        // Display the relation
+        DisplayRelation displayRelation;
+        displayRelation.setModal(true);
+        displayRelation.exec();
+    }
 }

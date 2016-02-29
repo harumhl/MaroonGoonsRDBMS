@@ -5,6 +5,7 @@
 #include "../Parser.cpp"
 #include "displayrelation.h"
 #include <string>
+#include <QMessageBox>
 using namespace std;
 
 SelectRelation::SelectRelation(QWidget *parent) :
@@ -41,41 +42,48 @@ void SelectRelation::on_buttonBox_accepted()
     string relation = ui->sRelationE->currentText().toUtf8().constData();
 
     int relation_index = engine->findRelation(relation);
-    Relation* the_relation = engine->getRelation(relation_index);
-
-    // Get attributes
-    string attribute = ui->sAttributesE->text().toUtf8().constData();
-
-    vector<Attribute*> all_attributes = the_relation->getAttributes();
-    vector<Attribute*> attributes;
-
-    vector<Token> attTokens = parser->splitInput(attribute);
-
-    // Finding the attributes
-    for (int i=0; i< all_attributes.size(); i++) {
-
-        for (int j=0; j< attTokens.size(); j++) {
-
-            if (all_attributes.at(i)->getName() == attTokens.at(j).getValue())
-                attributes.push_back( all_attributes.at(i) );
-        }
+    if (relation_index == -1) {
+        QString errorMessage = QString::fromStdString("Relation not found");
+        QMessageBox::information(0, "info", errorMessage);
     }
+    else {
 
-    // Get WHERE clause
-    QString whereClauseQ = ui->sWhereE->text();
-    string whereClause = whereClauseQ.toUtf8().constData();
+        Relation* the_relation = engine->getRelation(relation_index);
 
-    // Run
-    Tree*   tree = new Tree();
+        // Get attributes
+        string attribute = ui->sAttributesE->text().toUtf8().constData();
 
-    vector<Token> tokens = parser->splitInput(whereClause);
+        vector<Attribute*> all_attributes = the_relation->getAttributes();
+        vector<Attribute*> attributes;
 
-    tree->buildTree(tokens, 0);
+        vector<Token> attTokens = parser->splitInput(attribute);
 
-    MainWindow::instance().setRelation( engine->select(relation, attributes, tree) );
+        // Finding the attributes
+        for (int i=0; i< all_attributes.size(); i++) {
 
-    // Display the relation
-    DisplayRelation displayRelation;
-    displayRelation.setModal(true);
-    displayRelation.exec();
+            for (int j=0; j< attTokens.size(); j++) {
+
+                if (all_attributes.at(i)->getName() == attTokens.at(j).getValue())
+                    attributes.push_back( all_attributes.at(i) );
+            }
+        }
+
+        // Get WHERE clause
+        QString whereClauseQ = ui->sWhereE->text();
+        string whereClause = whereClauseQ.toUtf8().constData();
+
+        // Run
+        Tree*   tree = new Tree();
+
+        vector<Token> tokens = parser->splitInput(whereClause);
+
+        tree->buildTree(tokens, 0);
+
+        MainWindow::instance().setRelation( engine->select(relation, attributes, tree) );
+
+        // Display the relation
+        DisplayRelation displayRelation;
+        displayRelation.setModal(true);
+        displayRelation.exec();
+    }
 }

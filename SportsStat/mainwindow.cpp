@@ -28,7 +28,6 @@ void MainWindow::newPlayer(Player* cp) {
 
 void MainWindow::on_ExecuteButton_clicked()
 {
-    ui->label->setText( ui->commandBox->currentText() ); // temp
     if (ui->commandBox->currentText() == "Display Help") {
         DisplayHelp displayHelp;
         displayHelp.setModal(true);

@@ -47,6 +47,7 @@ class Engine {
     Relation* getRelation(int relation_index);
     vector<pair<int,int>> attributesInBoth(string relation1, string relation2);
     vector<pair<int,int>> tuplesInBoth(string rel1, string rel2, string searchData);
+    bool            isUnionCompatible (string relation1, string relation2);
     
  private:
     vector<Relation*> relations;
@@ -58,7 +59,6 @@ class Engine {
     pair<int,int>   findSameAttribute (string relation1, string relation2); // if found, return index of relation1, or else -1
     string          trimString (string str);
     string          toUpper (string str); // for Type type
-    bool            isUnionCompatible (string relation1, string relation2);
 
     vector<Attribute*> findAttributes(string rel, vector<string> attNames, vector<int>& att_index);
 
