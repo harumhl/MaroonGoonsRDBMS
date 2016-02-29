@@ -17,32 +17,34 @@ int main() {
   Executer* executer = new Executer();  
   Parser* parser = new Parser();
 
-  string q1 = "a <- Project (Animal, Number) Students;";
-  string q2 = "a <- rename (Animal, Species) Students";
+  string q1 = "a <- Project (Animal, Number) animals;";
+  string q2 = "a <- cross1 * cross2";
+  string q3 = "a <- cross1 - cross3";
+  string q4 = "a <- cross1 + cross2;";
+  string q5 = "a<- j1 JOIN j2";
+  //all test queries above this function correctly
+  string q6 = "";
   string createTest = "CREATE TABLE Teams (id INTEGER, favnum INTEGER, state INTEGER) PRIMARY KEY (id)";
   string insertTest = "INSERT INTO Students VALUES FROM (Mouse, 12345665, Mexico)";
   string insertTest2 = "INSERT INTO Mammals VALUES FROM (Mouse, 12345665, Mexico)";
   string DiffTest = "a <- All_Warriors - Warriors_Starters;";
 
-  engine->open("teambb1.txt");
-  //engine->changeRelationName(0, "Warriors_Starters");
-  engine->show("warriors_starters");
-  engine->open("teambb2.txt");
-  //engine->changeRelationName(1, "All_Warriors");
-  engine->show("warriors");
+  engine->open("join1.txt");
+  engine->changeRelationName(0, "j1");
+  engine->show("j1");
+  engine->open("join2.txt");
+  engine->changeRelationName(1, "j2");
+  engine->show("j2");
 
   vector<int> theVec;
 // To test use the different hardcoded strings to parse first.
   //vector<Token> tok = parser->splitInput(q1);
   //vector<Token> tok = parser->splitInput(insertTest2);
-  vector<Token> tokenvec = parser->splitInput(DiffTest);
+  vector<Token> tokenvec = parser->splitInput(q5);
   //vector<Token> tokenvec0 = parser->splitInput(q2);
 
   Executer* exec = new Executer();
-  //exec->execute(engine, tokenvec);
-  //engine->show("Difference");
-  //exec->execute(engine, tok);
-  //exec->execute(engine, tokenvec0);
+  exec->execute(engine, tokenvec);
 
   /*for(int i = 0; i < tok.size(); i++){
 	  cout << "tok value: " << tok.at(i).getValue() << "\t" << tok.at(i).getTokenType() << endl;

@@ -242,6 +242,9 @@ Relation* Executer::expr(){
 		case Token::PROJECT:
 			return project();
 			break;
+		case Token::JOIN:
+			//return naturalJoin();
+			break;
 	}
 }
 Relation* Executer::atomicExpr(){
@@ -258,7 +261,7 @@ Relation* Executer::atomicExpr(){
         return relation;
     }
     
-    if(lookAhead(Token::UNION) || lookAhead(Token::PRODUCT) || lookAhead(Token::DIFF)){
+    if(lookAhead(Token::UNION) || lookAhead(Token::PRODUCT) || lookAhead(Token::DIFF) || lookAhead(Token::JOIN)){
         relation = combine(relation);
         //string rname = relation->getName();
         //cout << "Diff made a relation named " << rname << endl;
@@ -289,15 +292,21 @@ Relation* Executer::combine(Relation* relation){
 	Token op = token;
 	nextToken();
 	Relation* relation2 = atomicExpr();
+	string name1, name2;
+	name1 = relation1->getName();
+	name2 = relation2->getName();
 	switch(op.getTokenType()){
 		case Token::PRODUCT:
-			//return engine->crossProduct(relation1->getName(), relation2->getName);
+			return engine->crossProduct(name1, name2);
 			break;
 		case Token::UNION:
 			return engine->union_(relation1->getName(), relation2->getName());
 			break;
 		case Token::DIFF:
 			return engine->difference(relation1->getName(), relation2->getName());
+			break;
+		case Token::JOIN:
+			return engine->naturalJoin(name1, name2);
 			break;
 	}
 

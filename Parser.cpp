@@ -181,6 +181,8 @@ Token Parser::recognizeToken(string input)
 	  	return Token(Token::SELECT, input);
 	else if (input == "PROJECT")
 	  	return Token(Token::PROJECT, input);
+	else if (input == "JOIN")
+		return Token(Token::JOIN, input);
 	else if (input == "RENAME")
 	  	return Token(Token::RENAME, input);
 	else if (input == "OPEN")
