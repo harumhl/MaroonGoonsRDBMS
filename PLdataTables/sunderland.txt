@@ -1,6 +1,6 @@
 sunderland
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Yann M'Vila, 26, 26, 1, 21, 4, 3, 1, 0
 Billy Jones, 23, 23, 1, 14, 4, 1, 8, 0
