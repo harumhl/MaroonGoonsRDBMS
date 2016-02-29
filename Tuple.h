@@ -22,7 +22,10 @@ struct Tuple {
     TupleTypes getTupleType() { return type; }
 
     // Setter
-    void setContents (vector<string> newContents) { contents = newContents; }
+    string dataPoint(int index) { return contents.at(index); }
+    void setContents(vector<string> newContents) {contents = newContents;}
+    void addData(string newData) {contents.push_back(newData);}
+    void updateValue(int index, string newData) {contents[index]= newData;}
     void setApp (Application* newApp) { app = newApp; }
     void setTupleType (TupleTypes tt) { type = tt; }
 
