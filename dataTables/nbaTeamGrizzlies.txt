@@ -1,7 +1,0 @@
-grizzlies
-Name|String, Number|Integer, Position|String
-Zach Randolph, 50, PF
-Brandan Wright, 34, C
-Matt Barnes, 22, SF
-Tony Allen, 9, SG
-Mike Conley, 11, PG
