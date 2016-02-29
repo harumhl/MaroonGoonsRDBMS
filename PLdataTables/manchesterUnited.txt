@@ -1,6 +1,6 @@
 manchester united
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Chris Smalling 25, 25, 0, 13, 2, 1, 6, 0
 Daley Blind, 24, 24, 1, 4, 2, 1, 2, 0
