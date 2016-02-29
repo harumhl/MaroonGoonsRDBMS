@@ -1,0 +1,22 @@
+PremierLeague
+Team|String, GamesPlayed|Integer, Wins|Integer, Draws|Integer, Losses|Integer, GoalsFor|Integer, GoalsAgainst|Integer, Points|Integer
+Leicester City, 26, 15, 8, 3, 48, 29, 53
+Tottenham Hotspur, 26, 14, 9, 3, 47, 20, 51
+Arsenal, 26, 15, 6, 5, 41, 23, 51
+Manchester City, 26, 14, 5, 7, 48, 28, 47
+Manchester United, 26, 11, 8, 7, 33, 24, 41
+Southampton, 26, 11, 7, 8, 34, 24, 40
+West Ham United, 26, 10, 10, 6, 40, 31,  40
+Liverpool, 26, 10, 8, 8, 38, 36, 38
+Watford, 26, 10, 6, 10, 29, 28, 36
+Stoke City, 26, 10, 6, 10, 27, 32, 36
+Everton, 26, 8, 11, 7, 46, 35, 35
+Chelsea, 26, 8, 9, 9, 38, 36, 33
+Crystal Palace, 26, 9, 5, 12, 27, 32, 32
+West Bromwich Albion, 26, 8, 8, 10, 24, 32, 32
+AFC Bournemouth, 26, 7, 7, 12, 30, 44, 28
+Swansea City, 26, 6, 9, 11, 24, 34, 27
+Norwich City, 26, 6, 6, 14, 30, 50, 24
+Newcastle United, 26, 6, 6, 14, 27, 49, 24
+Sunderland, 26, 6, 5, 15, 32, 50, 23
+Aston Villa, 26, 3, 7, 16, 20, 46, 16
