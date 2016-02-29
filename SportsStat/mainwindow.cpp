@@ -10,6 +10,7 @@
 #include "displayhelp.h"
 #include <vector>
 #include <iostream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,11 +65,17 @@ void MainWindow::on_ExecuteButton_clicked()
 
         string relation = ui->displayBox->currentText().toUtf8().constData();
         int relation_index = engine->findRelation(relation);
-        MainWindow::instance().setRelation( engine->getRelation(relation_index) );
+        if (relation_index == -1) {
+            QString errorMessage = QString::fromStdString("Relation not found");
+            QMessageBox::information(0, "info", errorMessage);
+        }
+        else {
+            MainWindow::instance().setRelation( engine->getRelation(relation_index) );
 
-        DisplayRelation displayRelation;
-        displayRelation.setModal(true);
-        displayRelation.exec();
+            DisplayRelation displayRelation;
+            displayRelation.setModal(true);
+            displayRelation.exec();
+        }
     }
 }
 

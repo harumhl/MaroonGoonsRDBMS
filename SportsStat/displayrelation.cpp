@@ -2,6 +2,7 @@
 #include "ui_displayrelation.h"
 #include "mainwindow.h"
 #include "../Engine.h"
+#include <QMessageBox>
 
 DisplayRelation::DisplayRelation(QWidget *parent) :
     QDialog(parent),
@@ -16,7 +17,10 @@ DisplayRelation::DisplayRelation(QWidget *parent) :
     if (relation == NULL) {
         if (engine->getNumRelations() > 0)
             MainWindow::instance().setRelation( engine->getRelation(0) );
-        // So relation == NULL and no relations in the engine, it will display an empty table
+        else {
+            QString errorMessage = QString::fromStdString("Relation not found");
+            QMessageBox::information(0, "info", errorMessage);
+        }
     }
     else { // relation != NULL
 
