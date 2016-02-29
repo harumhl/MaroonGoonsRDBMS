@@ -1,7 +1,0 @@
-pelicans
-Name|String, Number|Integer, Position|String
-Anthony Davis, 23, PF
-Omer Asik, 3, C
-Alonzo Gee, 15, SF
-Norris Cole, 30, SG
-Jrue Holiday, 11, PG
