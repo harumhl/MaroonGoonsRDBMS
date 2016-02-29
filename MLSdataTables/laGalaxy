@@ -1,0 +1,12 @@
+LA Galaxy
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+Juninho, 34, 32, 4, 28, 13, 7, 5, 0
+Omar Gonzalez, 30, 29, 1, 13, 6, 3, 3, 0
+Gyasi Zardes, 29, 27, 6, 45, 13, 4, 3, 0
+Leonardo, 26, 26, 0, 8, 1, 0, 2, 1
+Robbie Rogers, 27, 26, 1, 14, 5, 3, 6, 0
+AJ DeLaGarza, 24, 22, 0, 4, 0, 1, 4, 0
+Robbie Keane, 24, 22, 20, 73, 39, 8, 1, 0
+Baggio Husidic, 24, 21, 2, 21, 5, 5, 4, 0
+Dan Gargan, 25, 20, 0, 4, 1, 0, 6, 0
+Stefan Ishizaki, 20, 19, 1, 25, 8, 5, 3, 0
