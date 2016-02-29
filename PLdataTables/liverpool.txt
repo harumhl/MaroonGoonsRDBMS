@@ -1,6 +1,6 @@
 liverpool
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Nathaniel Clyne, 26, 26, 1, 19, 3, 0, 5, 0
 Simon Mignolet, 25, 25, 0, 0, 0, 0, 2, 0
