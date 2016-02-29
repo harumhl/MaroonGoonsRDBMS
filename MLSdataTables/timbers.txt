@@ -1,0 +1,12 @@
+Portland Timbers
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+Adam Kwarasey, 33, 33, 0, 0, 0, 0, 1, 0
+Darlington Nagbe, 33, 33, 5, 50, 16, 5, 0, 0
+Jorge Villafana, 33, 33, 1, 15, 7, 5, 3, 0
+Liam Ridgewell, 32, 32, 0, 12, 2, 1, 6, 1
+Nat Borchers, 31, 31, 3, 15, 8, 0, 0, 0
+Alvas Powell, 31, 31, 3, 15, 8, 0, 0, 0
+Diego Chara, 28, 28, 2, 11, 7, 1, 8, 1
+Fanendo Adi, 33, 23, 16, 85, 36, 3, 2, 0
+Rodney Wallace, 32, 23, 1, 40, 12, 7, 3, 0
+Diego Valeri, 22, 20, 2, 67, 22, 8, 5, 0
