@@ -1,7 +1,0 @@
-magic
-Name|String, Number|Integer, Position|String
-Ersan Ilyasova, 7, PF
-Nikola Vucevic, 9, C
-Aaron Gordon, 00, SF
-Victor Oladipo, 5, SG
-Elfrid Payton, 4, PG
