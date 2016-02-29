@@ -2,15 +2,21 @@
 #include "ui_mainwindow.h"
 #include "addleagueteamplayer.h"
 #include "uniondiffprodjoin.h"
+#include "../Engine.h"
 #include "../Player.h"
 #include "displayrelation.h"
 #include "openclosewriteexit.h"
 #include "selectrelation.h"
 #include "projectrelation.h"
 #include "displayhelp.h"
+#include <iostream>
 #include <vector>
+#include <string>
 #include <iostream>
 #include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

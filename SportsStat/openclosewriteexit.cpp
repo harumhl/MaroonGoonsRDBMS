@@ -75,3 +75,20 @@ void OpenCloseWriteExit::on_buttonBox_accepted()
             engine->write(relation);
     }
 }
+
+void OpenCloseWriteExit::on_loadAllButton_clicked()
+{
+    string fileName1 = "/Users/HaruLee/GitHub/MaroonGoons-P1D4/input.txt";
+    string fileName2 = "/Users/HaruLee/GitHub/MaroonGoons-P1D4/input2.txt";
+
+    Engine* engine = MainWindow::instance().getEngine();
+
+    QFile file( QString::fromStdString(fileName1) );
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "info", file.errorString());
+    }
+    else {
+        engine->open(fileName1);
+        engine->open(fileName2);
+    }
+}
