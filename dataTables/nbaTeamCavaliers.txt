@@ -1,7 +1,0 @@
-cavaliers
-Name|String, Number|Integer, Position|String
-Kevin Love, 0, PF
-Tistan Thompson, 13, C
-Lebron James, 23, SF
-JR Smith, 5, SG
-Kyrie Irving, 2, PG
