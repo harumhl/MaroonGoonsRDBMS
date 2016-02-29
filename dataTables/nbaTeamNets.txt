@@ -1,7 +1,0 @@
-nets
-Name|String, Number|Integer, Position|String
-Brook Lopez, 11, C
-Bojan Bogdanovic, 44, SF
-Thaddeus Young, 30, PF
-Wayne Ellington, 21, SG
-Donald Sloan, 15, PG
