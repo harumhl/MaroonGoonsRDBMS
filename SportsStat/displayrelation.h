@@ -18,6 +18,8 @@ public:
 private slots:
     void on_updateButton_clicked();
 
+    void on_renameButton_clicked();
+
 private:
     Ui::DisplayRelation *ui;
 };

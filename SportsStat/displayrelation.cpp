@@ -15,7 +15,7 @@ DisplayRelation::DisplayRelation(QWidget *parent) :
     // TEMP
     if (relation == NULL) {
         if (engine->getNumRelations() > 0)
-            relation = engine->getRelation(0);
+            MainWindow::instance().setRelation( engine->getRelation(0) );
     }
     else { // relation != NULL
 
@@ -46,8 +46,6 @@ DisplayRelation::DisplayRelation(QWidget *parent) :
                 }
             }
 
-            MainWindow::instance().setRelation(NULL);
-
             // Displaying options for other relations
             Engine* engine = MainWindow::instance().getEngine();
 
@@ -74,6 +72,7 @@ void DisplayRelation::on_updateButton_clicked()
     string relationStr = ui->relationsBox->currentText().toUtf8().constData();
     int relation_index = engine->findRelation(relationStr);
     Relation* relation = engine->getRelation(relation_index);
+    MainWindow::instance().setRelation(relation);
 
     // Display relation name
     ui->relationName->setText( QString::fromStdString(relation->getName()) );
@@ -99,5 +98,23 @@ void DisplayRelation::on_updateButton_clicked()
             QTableWidgetItem* q = new QTableWidgetItem( QString::fromStdString(contents.at(j)) );
             ui->tableWidget->setItem(i, j, q);
         }
+    }
+}
+
+void DisplayRelation::on_renameButton_clicked()
+{
+    Engine* engine = MainWindow::instance().getEngine();
+    Relation* relation = MainWindow::instance().getRelation();
+
+    // Getting the relation
+    string newRelation = ui->relationName->text().toUtf8().constData();
+
+    engine->renameRelation(relation->getName(), newRelation);
+
+    // Updating options for other relations
+    ui->relationsBox->clear();
+    for (int i=0; i< engine->getNumRelations(); i++) {
+        QString relationName = QString::fromStdString( engine->getRelation(i)->getName() );
+        ui->relationsBox->addItem(relationName);
     }
 }
