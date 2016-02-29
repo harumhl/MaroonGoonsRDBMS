@@ -1,7 +1,0 @@
-Celtics
-Name|String, Number|Integer, Position|String
-Amir Johnson, 90, PF
-Jared Sullinger, 7, C
-Jae Crowder, 99, SF
-Avery Bradley, 0, SG
-Isaiah Thomas, 4, PG
