@@ -1,7 +1,0 @@
-rockets
-Name|String, Number|Integer, Position|String
-Clint Capela, 15, PF
-Dwight Howard, 12, C
-Trevor Ariza, 1, SF
-James Harden, 13, SG
-Patrick Beverly, 2, PG
