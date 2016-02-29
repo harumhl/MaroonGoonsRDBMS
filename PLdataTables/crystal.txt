@@ -1,32 +1,14 @@
 crystal
 
-playerName|String, playerNumber|Integer, Position|String, CountryBorn|String, GamesPlayed|Integer, Goals|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
 
-Julian Speroni, 1, Goalkeeper, Argentina, 79, 0, 1, 0
-Joel Ward, 2, Defender, England, 93, 3, 9, 0
-Adrian Mariappa, 3, Defender, England, 37, 1, 9, 0
-Brede Hangeland, 4, Defender, United States, 21, 2, 4, 0
-Paddy McCarthy, 5, Defender, Italy, 1, 0, 0, 0
-Scott Dann, 6, Defender, England, 74, 8, 14, 0
-Yohan Cabaye, 7, Midfielder, France, 24, 5, 7, 0
-Fraizer Campbell, 9, Forward, England, 30, 4, 6, 0
-Yannick Bolasie, 10, Midfielder, France, 80, 8, 5, 1
-Wilfried Zaha, 11, Midfielder, Ireland, 57, 6, 6, 0
-Alex McCarthy, 12, Goalkeeper, England, 6, 0, 0, 0
-Wayne Hennessey, 13, Goaldkeeper, Wales, 25, 0, 1, 0
-Lee Chung-yong, 14, Midfielder, Republic of Korea, 14, 1, 0, 0
-Mile Jedinak, 15, Midfielder, Australia, 79, 6, 16, 1
-Dwight Gayle, 16, Forward, england, 56, 12, 4, 1
-James McArther, 18, Scotland, 56, 4, 9, 0
-Ezekiel Fryers, 19, Defender, England, 1, 0, 0, 0
-Connor Wickham, 21, Forward, England, 14, 3, 1, 0
-Jordon Mutch, 22, Midfielder, England, 22, 0, 2, 0
-Pape Souare, 23, Defender, Senegal, 33, 0, 4, 1
-Emmanual Adebayor, 25, Forward, Togo, 4, 1, 1, 0
-Bakary Sako, 26, Midfielder, Mali, 10, 2, 0, 0
-Damien Delaney, 27, Defender, Italy, 87, 2, 18, 1
-Joe Ledley, 28, Midfielder, Wales, 58, 4, 1, 0
-Marouane Chamakh, 29, France, 60, 7, 14, 0
-Martin Kelly, 34, Defender, England, 40, 0, 4, 0
-Hiram Boateng, 36, Midfielder, England, 1, 0, 0, 0
-Jason Puncheon, 42, Midfielder, England, 95, 13, 13, 1
+Scott Dann, 26, 26, 5, 21, 8, 1, 4, 0
+Jason Puncheon, 24, 24, 0, 37, 8, 3, 3, 0
+Pape Souare, 24, 24, 0, 7, 1, 1, 3, 1
+Wilfried Zaha, 26, 24, 2, 23, 7, 1, 5, 0
+Yohan Cabaye, 24, 23, 5, 52, 16, 1, 7, 0
+James McArthur, 24, 23, 2, 14, 4, 2, 3, 0
+Damien Delaney, 21, 21, 1, 13, 4, 3, 1, 0
+Wayne Hennessey, 21, 21, 0, 0, 0, 0, 1, 0
+Joel Ward, 20, 20, 2, 11, 4, 0, 2, 0
+Yannick Bolasie, 17, 14, 4, 39, 17, 1, 1, 0
