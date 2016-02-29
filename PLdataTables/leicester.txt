@@ -1,0 +1,14 @@
+leicester
+
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+
+Wes Morgan, 27, 27, 0, 8, 1, 0, 1, 0
+Kasper Schmeichel, 27, 27, 0, 0, 0, 0, 1, 0
+Jamie Vardy, 27, 27, 19, 87, 42, 4, 5, 0
+Marc Albrighton, 27, 26, 1, 35, 8, 6, 4, 0
+Robert Huth, 26, 26, 3, 18, 5, 0, 7, 0
+Daniel Drinkwater, 25, 25, 1, 30, 8, 4, 2, 0
+Riyad Mahrea, 26, 25, 14, 66, 32, 10, 1, 0
+N'Golo Kante, 27, 23, 1, 17, 3, 3, 1, 0
+Christian Fuchs, 21, 19, 0, 6, 4, 3, 1, 0
+Danny Simpson, 19, 19, 0, 4, 1, 0, 3, 1
