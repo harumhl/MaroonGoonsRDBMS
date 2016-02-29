@@ -1,7 +1,0 @@
-bucks
-Name|String, Number|Integer, Position|String
-Jabari Parker, 12, PF
-Miles Plumlee, 18, C
-Giannis Antetokounmpo, 34, SF
-Khris Middleton, 22, SG
-OJ Mayo, 3, PG
