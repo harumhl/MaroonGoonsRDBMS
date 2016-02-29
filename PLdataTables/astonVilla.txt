@@ -1,6 +1,6 @@
 aston villa
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Idrissa Gueye, 24, 24, 0, 23, 3, 0, 5, 0
 Leandro Bacuna, 22, 20, 1, 26, 7, 0, 6, 0
