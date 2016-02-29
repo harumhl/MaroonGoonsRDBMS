@@ -1,0 +1,12 @@
+New England Revolution
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+Scott Caldwell, 34, 32, 2, 14, 5, 5, 3, 0
+Andrew Farrell, 32, 32, 0, 2, 0, 0, 3, 1
+Lee Nguyen, 32, 31, 7, 82, 30, 10, 4, 1
+Bobby Shuttleworth, 31, 31, 0, 0, 0, 0, 1, 0
+Chris Tierney, 31, 29, 2, 25, 13, 6, 3, 1
+Jose Goncalves, 29, 28, 1, 6, 3, 2, 4, 2
+Charlie Davies, 33, 25, 10, 49, 26, 4, 1, 0
+Kelyn Rowe, 33, 21, 7, 51, 24, 6, 2, 0
+Juan Agudelo, 32, 20, 4, 26, 10, 5, 6, 0
+Teal Bunbury, 30, 20, 4, 26, 10, 5, 6, 0
