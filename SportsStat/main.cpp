@@ -4,6 +4,7 @@
 #include <iostream>
 #include "../Engine.h"
 #include "../Player.h"
+//#include "../MLSdataTables/"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -14,6 +15,6 @@ int main(int argc, char *argv[])
 
     Engine* engine = new Engine();
     MainWindow::instance().setEngine(engine);
-
+    //engine->open("../MLSdataTables/1.txt");
     return a.exec();
 }
