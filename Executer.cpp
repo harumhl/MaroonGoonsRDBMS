@@ -206,6 +206,7 @@ void Executer::query(){
 	nextToken();
 	Relation* relPtr;
 	relPtr = expr();
+	tempRelation = relPtr;
 	cerr << "The program doesn't crash" << endl;
 	//engine->renameRelation(relPtr, relationName);
 	//engine->createRelation(relPtr);
