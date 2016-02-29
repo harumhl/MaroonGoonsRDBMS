@@ -1,6 +1,6 @@
 southampton
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Jose Fonte, 27, 27, 2, 16, 5, 0, 4, 0
 Steven Davis, 24, 23, 2, 14, 5, 2, 3, 0
