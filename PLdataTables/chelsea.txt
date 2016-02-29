@@ -1,23 +1,14 @@
 chelsea
 
-playerName|String, playerNumber|Integer, Position|String, CountryBorn|String, GamesPlayed|Integer, Goals|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
 
-Asmir Begovic, 1, Goalkeeper, Bosnia, 12, 0, 0, 0
-Branislav Ivanovic, 2, Defender, Serbia, 238, 22, 52, 2
-Cesc Fabregas, 4, Midfielder, Spain, 60, 5, 12, 1
-Oscar, Midfielder, 8, Brazil, 115, 21, 13, 0
-Falcao, Forward, 9, Colombia, 9, 1, 1, 0
-Eden Hazard, 10, Midfielder, Belgium, 131, 37, 8, 0
-Alexandra Pato, 11, Forward, Brazil, 0, 0, 0, 0
-John Mikel, 12, Midfielder, Nigeria, 239, 1, 36, 1
-Thibaut Courtois, 13, Goalkeeper, Belgium, 48, 0, 2, 1
-Pedro, 17, Forward, Spain, 21, 4, 2, 0
-Loic Remy, 18, Forward, France, 29, 8, 0, 0
-Diego Costa, 19, Forward, Brazil, 49, 30, 16, 0
-Nemanja Matic, 21, Midfielder, Serbia, 81, 2, 18, 2
-Willian, Midfielder, 22, Brazil, 87, 10, 10, 1
-Gar Cahll, Defender, 24, England, 117, 6, 11, 0
-John Terry, Defender, 26, England, 478, 40, 70, 5
-Jamal Backman, 27, Goalkeeper, 0, 0, 0, 0
-Cesar Azpilicueta, 28, Defender, Spain, 111, 2, 10, 1
-Marco Amelia, 32, Goalkeeper, Italy, 0, 0, 0, 0
+Cesar Axpilicueta, 26, 25, 2, 9, 4, 1, 4, 0
+Willian, 26, 24, 4, 40, 14, 5, 3, 0
+Cesc Fabregas, 26, 23, 2, 27, 13, 4, 1, 0
+Branislav Ivanovic, 23, 23, 2, 24, 4, 2, 3, 0
+Diego Costa, 23, 22, 10, 57, 22, 5, 8, 0
+Nemanja Matic, 26, 21, 1, 30, 7, 0, 4, 1
+John Terry, 21, 21, 1, 9, 2, 0, 2, 1
+Kurt Zouma, 23, 21, 1, 16, 2, 1, 0, 0
+Eden Hazard, 24, 19, 0, 25, 8, 2, 2, 0
+Pedro, 21, 17, 4, 43, 10, 3, 2, 0
