@@ -1,7 +1,0 @@
-mavericks
-Name|String, Number|Integer, Position|String
-Dirk Nowitzki, 41, PF
-Zaza Pachulia, 27, C
-Chandler Parsons, 25, SF
-Wesley Matthews, 23, SG
-Deron Williams, 8, PG
