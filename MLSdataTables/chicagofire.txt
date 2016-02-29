@@ -1,0 +1,24 @@
+chicago fire
+
+playerName|String, playerNumber|Integer, Position|String, CountryBorn|String, GamesPlayed|Integer, Goals|Integer, YellowCard|Integer, RedCard|Integer
+
+David Accam, 11, Forward, Ghana, 24, 21, 4, 1
+Kingsley Bryce, 27, Midfielder, United States, 0, 0, 0, 0
+Joey Bryce, 15, Forward, United States, 0, 0, 0, 0
+Jonathan Campbell, 16, Defender, United States, 0, 0, 0, 0
+Razvan Cocis, 30, Midfielder, Romania, 36, 30, 4, 0
+Drew Conner, 18, Midfielder, United States, 0, 0, 0, 0
+Patrick Doody, 22, Defender, United States, 7, 6, 1, 0
+Collin Fernandex, 17, Midfielder, United States, 1, 0, 0, 0
+Eric Gehrig, 6, Defender, United States, 71, 57, 10, 0
+Michael Harrington, 5, Defender, United States, 221, 196, 23, 1
+Sean Johnson, 25, Goalkeeper, United States, 154, 154, 53, 49
+John Kappelhof, 4, Defender, Netherlands, 0, 0, 0, 0
+Nick LaBrocca, 21, Midfielder, United States, 220, 192, 31, 0
+Matt Lampson, 28, Goalkeeper, United States, 0, 0, 0, 0
+Patrick McLain, 23, Goalkeeper, United States, 2, 1, 1, 0
+Joao Meira, 66, Defender, Portugal, 0, 0, 0, 0
+Matt Polster, 2, Midfielder, United States, 30, 27, 10, 0
+Rodrigo Ramos, 13, Defender, Brazil, 0, 0, 0, 0
+Michael Stephens, 26, Midfielder, United States, 38, 29, 5, 0
+Brandon Vincent, 3, Defender, United States, 0, 0, 0, 0
