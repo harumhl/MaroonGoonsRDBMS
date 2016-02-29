@@ -1,6 +1,6 @@
 everton
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Ross Barkley, 26, 26, 8, 82, 23, 7, 3, 0
 Gareth Barry, 26, 26, 0, 13, 3, 1, 4, 1
