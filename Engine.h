@@ -45,8 +45,8 @@ class Engine {
     string  relationName(int relation_index);
     int     findRelation (string relation); // returns the index in relations
     Relation* getRelation(int relation_index);
-    vector< pair<int,int> > findSameAttributes (string relation1, string relation2);
-    vector< pair<int,int> > tuplesInBoth(string rel1, string rel2, vector<string> searchData);
+    vector<pair<int,int>> attributesInBoth(string relation1, string relation2);
+    vector<pair<int,int>> tuplesInBoth(string rel1, string rel2, string searchData);
     
  private:
     vector<Relation*> relations;
