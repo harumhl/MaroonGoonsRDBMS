@@ -1,0 +1,14 @@
+everton
+
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+
+Ross Barkley, 26, 26, 8, 82, 23, 7, 3, 0
+Gareth Barry, 26, 26, 0, 13, 3, 1, 4, 1
+Romelu lukaku, 2626, 16, 91, 32, 5, 2, 0
+Tim Howard, 23, 23, 0, 0, 0, 0, 1, 0
+John Stones, 21, 21, 0, 7, 0, 0, 3, 0
+Seamus Coleman, 21, 20, 1, 22, 4, 3, 4, 0
+James McCarthy, 18, 18, 0, 10, 4, 2, 4, 0
+Ramiro Mori, 20, 17, 2, 17, 3, 0, 4, 0
+Phil Jagielka, 15, 15, 0, 6, 0, 0, 0, 0
+Brendan Galloway, 15, 14, 0, 8, 0, 1, 2, 0
