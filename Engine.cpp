@@ -445,123 +445,90 @@ Relation* Engine::crossProduct(string relation1, string relation2) {
 Relation* Engine::naturalJoin(string relation1, string relation2) {
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
-    
-    if (relation1_index == -1 || relation2_index == -1) return NULL;
+    if (relation1_index == -1 || relation2_index == -1) return nullptr;
 	
-    // Creating needed variables
+	// WE NEED TO GET THE NAMING ALL SAME!!!
 	Relation* relation_1 = relations.at(relation1_index);
 	Relation* relation_2 = relations.at(relation2_index);
-
-    vector<Attribute*> attributes1 = relation_1->getAttributes();
+	vector<Attribute*> attributes1 = relation_1->getAttributes();
 	vector<Attribute*> attributes2 = relation_2->getAttributes();
-
-    vector<Tuple*> tuples1 = relation_1->getTuples();
+	vector<Tuple*> tuples1 = relation_1->getTuples();
 	vector<Tuple*> tuples2 = relation_2->getTuples();
 	
-    // vector of pairs of indices for matching attributes: (x,y) = (relation1, relation2)
-	vector< pair<int,int> > matchingColumns = findSameAttributes (relation1, relation2);
-
-    if(matchingColumns.size() == 0){
-        cerr << "Error, these relations cannot be joined (no same attribute)" << endl;
-        return NULL;
-    }
-
-    // one pair of indices for matching attributes: (x,y) = (relation1, relation2)
-    pair<int,int> sameAttributeIndex;
-    
-    // Creating needed variables for putting attributes together
-    vector<string> commonAtts; // common attributes' names
-    
-    // Initializing commonAtts
-    for (int i=0; i < matchingColumns.size(); i++) {
-        sameAttributeIndex = matchingColumns.at(i);
-        int index1 = sameAttributeIndex.first;
-        commonAtts.push_back( attributes1.at(index1)->getName() );
-    }
-
-    vector<int> nonDuplicateIndex; // indices from non_main which aren't duplicates from main atts
-    
-    vector<Attribute*> the_attributes;
+	vector<pair<int,int>> matchingColumns = attributesInBoth(relation1, relation2);
+	//need a function which compares tuples in 2 relations and finds a common index
+	//of all tuple pairs, in order to populate the final naturaljoin relation
+	if(matchingColumns.size() == 0){
+		cerr << "Error, these relations cannot be joined";
+	}
+	pair<int,int> sameAttributeIndex = matchingColumns.back();
+	//need a pair<int,int> sameTupleIndex; that compares relations based on the
+	//datapoints in tuples at the common attribute index, only adding tuples that are ;
+	matchingColumns.pop_back();
+	int index1 = sameAttributeIndex.first;
+	string commonAttName = attributes1.at(index1)->getName();
+	int index2 = sameAttributeIndex.second;
+	vector<Attribute*> the_attributes;
 	vector<Tuple*> theTuples;
-
-    int priorityRelation; // is a 1 or 2 depending on which attribute list was longer
-
-    // Putting attributes together (attributes1 + attributes2) without having duplicates
-    if (attributes1.size() >= attributes2.size()) { // attributes1 is the main one
+	int priorityRelation; //is a 1 or 2 depending on which attribute list was longer
+	if(attributes1.size() >= attributes2.size()){
 		the_attributes = attributes1;
 		Attribute* tempAtt;
-        
-        // Iterating through non_main attributes and adding each if it doesn't exist in main one
 		for(int i = 0; i < attributes2.size(); i++){
-            
-            // Iterating through the matches to see if it is a duplicate or new
-            for (int j = 0; j < matchingColumns.size(); j++) {
-                sameAttributeIndex = matchingColumns.at(j);
-                
-                if (i == sameAttributeIndex.second) break; // duplicate, jump to next i
-                
-                if (j == matchingColumns.size()-1) { // duplicate not found until the end
-                    tempAtt = attributes2.at(i);
-                    the_attributes.push_back(tempAtt);
-                    nonDuplicateIndex.push_back(i);
-                }
-            }
+			if(i != index2){
+				tempAtt = attributes2.at(i);
+				the_attributes.push_back(tempAtt);
+			}
 		}
 		priorityRelation = 1;
 	}
-	else { // attributes2 is the main one
+	else{
 		the_attributes = attributes2;
 		Attribute* tempAtt;
-        
-        // Iterating through non_main attributes and adding each if it doesn't exist in main one
-        for(int i = 0; i < attributes1.size(); i++){
-            
-            // Iterating through the matches to see if it is a duplicate or new
-            for (int j = 0; j < matchingColumns.size(); j++) {
-                sameAttributeIndex = matchingColumns.at(j);
-                
-                if (i == sameAttributeIndex.first) break; // duplicate, jump to next i
-                
-                if (j == matchingColumns.size()-1) { // duplicate not found until the end
-                    tempAtt = attributes1.at(i);
-                    the_attributes.push_back(tempAtt);
-                    nonDuplicateIndex.push_back(i);
-                }
-            }
-        }
+		for(int i = 0; i < attributes1.size(); i++){
+			if(i != index1){
+				tempAtt = attributes1.at(i);
+				the_attributes.push_back(tempAtt);
+			}
+		}
 		priorityRelation = 2;
 	}
+	//if(priorityRelation == 1){
+		//theTuples = tuples1;
 
-    // Now we are going to put tuples together
-    
-    vector< pair<int,int> > commonTuples = tuplesInBoth(relation1, relation2, commonAtts);
-
-    // Finding every two tuples where the contents match for matching attributes
-	for(int j = 0; j < commonTuples.size(); j++){
-        
-		pair<int,int> currentTuple = commonTuples.at(j);
-        
-		int first = currentTuple.first;
-		int second = currentTuple.second;
-        
-        // few string information will be attached from t2 to t1 (thus, t1 will be saved)
-		Tuple* t1 = tuples1.at(first);
-		Tuple* t2 = tuples2.at(second);
-        
-        string newData;
-        
-        // Attaching string info from t2 to t1 for nonMatching attributes
-		for(int k = 0; k < nonDuplicateIndex.size(); k++){
-
-            t1->addContent( t2->getContent(nonDuplicateIndex.at(k)) );
+	//}
+	//else{
+	//	theTuples = tuples2;
+	//}
+	vector<pair<int,int>> commonTuples = tuplesInBoth(relation1, relation2, commonAttName);
+	//cout << "Found " << commonTuples.size() << " common tuples" << endl;
+	int first, second;
+	pair<int,int> currentTuple;
+	Tuple* t1;
+	Tuple* t2;
+	string newData;
+	for(int j = 0; j <= commonTuples.size()+1; j++){
+		currentTuple = commonTuples.back();
+		commonTuples.pop_back();
+		first = currentTuple.first;
+		second = currentTuple.second;
+		t1 = tuples1.at(first);
+		t2 = tuples2.at(second);
+		for(int k = 0; k < attributes2.size(); k++){
+			if(attributes2.at(k)->getName() != commonAttName){
+				newData = t2->dataPoint(k);
+				t1->addData(newData);
+			}
 		}
+		//cout << "trying to addtuple " << j << " to the rel" << endl;
 		theTuples.push_back(t1);
+		//cout << "added tuple" << endl;
 	}
 
-	Relation* joined_relation = new Relation("joinedRelation", the_attributes);
-	joined_relation->setTuples(theTuples);
-    
-	return joined_relation;
+	Relation* the_joined_relation = new Relation("joinedRelation", the_attributes);
+	the_joined_relation->setTuples(theTuples);
+	relations.push_back(the_joined_relation);
+	return the_joined_relation;
 }
 
 // NOW, HELPER FUNCTIONS
@@ -606,84 +573,30 @@ Relation* Engine::getRelation(int relation_index) {
     }
     return relations.at(relation_index);
 }
-
-vector< pair<int,int> > Engine::findSameAttributes (string relation1, string relation2){
-    // No error checking since the caller function should have done so already
+vector<pair<int,int>> Engine::tuplesInBoth(string relation1, string relation2, string commonAtt){
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
-    
-	vector<Attribute*> attributes1 = relations.at(relation1_index)->getAttributes();
-	vector<Attribute*> attributes2 = relations.at(relation2_index)->getAttributes();
-    
+	vector<Tuple*> tuples1 = relations.at(relation1_index)->getTuples();
+	vector<Tuple*> tuples2 = relations.at(relation2_index)->getTuples();
+	int attribute1index = relations.at(relation1_index)->findAttribute(commonAtt);
+	int attribute2index = relations.at(relation2_index)->findAttribute(commonAtt);
 	pair<int, int> indices;
-	vector< pair<int,int> > matchingColumns;
-    
-    // Iterating through attribute1 vector
-	for(int i = 0; i< attributes1.size();i++){
-
-        // Iterating through attribute2 vector
-        for(int j = 0; j < attributes2.size(); j++){
-			if(attributes1.at(i)->getName() == attributes2.at(j)->getName()){
-                indices.first = i;
-                indices.second = j;
-                matchingColumns.push_back(indices);
-			}
-		}
-	}
-	return matchingColumns;
-}
-vector< pair<int,int> > Engine::tuplesInBoth(string relation1, string relation2, vector<string> commonAtts){
-	int relation1_index = findRelation (relation1);
-	int relation2_index = findRelation (relation2);
-    
-    Relation* relation_1 = relations.at(relation1_index);
-    Relation* relation_2 = relations.at(relation2_index);
-    
-	vector<Tuple*> tuples1 = relation_1->getTuples();
-	vector<Tuple*> tuples2 = relation_2->getTuples();
-    
-    int attribute1index = relation_1->findAttribute(commonAtts.at(0));
-    int attribute2index = relation_2->findAttribute(commonAtts.at(0));
-    
-	vector< pair<int,int> > matches;
-    
-    // We want to pick those tuples that string values are same for given attributes (commonAtts)
-    
-    // Iterating through each tuple in relation1
+	vector<pair<int,int>> matches;
+	string data1, data2;
+	Tuple* tempTuple1;
+	Tuple* tempTuple2;
 	for(int i = 0; i < tuples1.size(); i++){
-        attribute1index = relation_1->findAttribute(commonAtts.at(0)); // first commonAtts
-        
-		Tuple* tempTuple1 = tuples1.at(i);
-		string data1 = tempTuple1->getContent(attribute1index);
-        
-        // Iterating through each tuple in relation2
+		tempTuple1 = tuples1.at(i);
+		data1 = tempTuple1->dataPoint(attribute1index);
 		for(int j = 0; j < tuples2.size(); j++){
-            attribute2index = relation_2->findAttribute(commonAtts.at(0)); // first commonAtts
-            
-			Tuple* tempTuple2 = tuples2.at(j);
-			string data2 = tempTuple2->getContent(attribute2index);
-            
-            if (data1 == data2) { // if strings from each relation are same, then proceed w/ rest
-                for (int k = 1; k < commonAtts.size(); k++) { // second to the rest of commonAtts
-                    attribute1index = relation_1->findAttribute(commonAtts.at(k));
-                    attribute2index = relation_2->findAttribute(commonAtts.at(k));
-                    
-                    data1 = tempTuple1->getContent(attribute1index);
-                    data2 = tempTuple2->getContent(attribute2index);
-                    
-                    // if string values for every common attributes are same, then add to "match"
-                    if (k+1 == commonAtts.size() && data1 == data2) {
-                        pair<int, int> indices;
-                        indices.first = i;
-                        indices.second = j;
-                        matches.push_back(indices);
-                    }
-                    else if (data1 == data2)
-                        continue; // if string values are same, then try more
-                    else
-                        break; // or just try other ones with new k (or new i) value(s)
-                }
-            }
+			tempTuple2 = tuples2.at(j);
+			data2 = tempTuple2->dataPoint(attribute2index);
+			//cout<<data2 << " versus " << data1 << endl;
+			if(data1 == data2){
+				indices.first = i;
+				indices.second = j;
+				matches.push_back(indices);
+			}
 		}
 	}
 	return matches;
@@ -701,18 +614,18 @@ vector<string> Engine::tokenize (string input, char delimeter) {
   	}
 	return tokenized;
 }
-pair<int,int> Engine::findSameAttribute (string relation1, string relation2) { 
-	// if attributes of same name are found from each relation, then return the indices from relations, 
+pair<int,int> Engine::findSameAttribute (string relation1, string relation2) {
+	// if attributes of same name are found from each relation, then return the indices from relations,
 	// or not found, then return the pair <-1, ?>
 	// if more than one attributes are found to be same, then return the pair <-99, ?>
-	
+
 	int relation1_index = findRelation (relation1);
 	int relation2_index = findRelation (relation2);
     if (relation1_index == -1 || relation2_index == -1) return pair<int,int>();
-	
+
 	vector<Attribute*> attributes1 = relations.at(relation1_index)->getAttributes();
 	vector<Attribute*> attributes2 = relations.at(relation2_index)->getAttributes();
-	
+
 	pair<int,int> indices;
 	indices.first = -2; // random number, neither -1 nor -99
 	bool found_only_once = false; // To find if more than one attributes from each relation are same
@@ -726,7 +639,7 @@ pair<int,int> Engine::findSameAttribute (string relation1, string relation2) {
 		}
 	}
 	if (found_only_once == false) indices.first = -1; // found_only_once == false, thus not found
-	
+
 	return indices;
 }
 string Engine::trimString (string str) {
@@ -797,4 +710,25 @@ vector<Attribute*> Engine::findAttributes(string relation, vector<string> attrib
         }
     }
     return the_attributes;
+}
+vector<pair<int,int>> Engine::attributesInBoth(string relation1, string relation2){
+	int nummatches = 0;
+	int relation1_index = findRelation (relation1);
+	int relation2_index = findRelation (relation2);
+	vector<Attribute*> attributes1 = relations.at(relation1_index)->getAttributes();
+	vector<Attribute*> attributes2 = relations.at(relation2_index)->getAttributes();
+	pair<int, int> indices;
+	vector<pair<int,int>> matchingColumns;
+	for(int i = 0; i< attributes1.size();i++){
+		for(int j = 0; j < attributes2.size(); j++){
+			if(attributes1.at(i)->getName() == attributes2.at(j)->getName()){
+							indices.first = i;
+							indices.second = j;
+							matchingColumns.push_back(indices);
+							nummatches++;
+			}
+		}
+	}
+	//cout << "Found " << nummatches << " number of matching colums\n";
+	return matchingColumns;
 }
