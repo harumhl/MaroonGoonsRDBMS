@@ -1,4 +1,4 @@
-manchester united
+manchester city
 
 Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
 
