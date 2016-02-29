@@ -35,21 +35,6 @@
     </item>
     <item>
      <property name="text">
-      <string>Display a league</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Display a team</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Display a player</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>Select a relation/table</string>
      </property>
     </item>
