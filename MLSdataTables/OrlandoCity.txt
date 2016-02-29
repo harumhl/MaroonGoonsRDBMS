@@ -1,0 +1,12 @@
+Orlando City SC
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCards|Integer, RedCards|Integer
+Corey Ashe, 9, 8, 0, 2, 1, 3, 0, 0
+Eric Avilla, 21, 15, 1, 17, 3, 2, 1, 0
+Luke Boden, 25, 24, 1, 5, 1, 4, 6, 1
+Servando Carrasco, 12, 10, 0, 3, 1, 2, 2, 0
+Darwin Ceren, 26, 25, 2, 29, 7, 2, 6, 0
+Aurelien Collin, 28, 27, 2, 10, 3, 1, 2, 1
+Christian Higuita, 26, 25, 1, 12, 1, 2, 10, 1
+Cyle Larin, 27, 24, 17, 64, 29, 0, 0, 1
+Rafael Ramos, 25, 24, 0, 8, 3, 2, 5, 2
+Tally Hall, 23, 23, 0, 0, 0, 0, 2, 0
