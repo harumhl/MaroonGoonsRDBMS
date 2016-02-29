@@ -1,6 +1,6 @@
 swansea city
 
-Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Goals|Integer, Shots|Integer, ShotsOnGoal|Integer, Assists|Integer, YellowCard|Integer, RedCard|Integer
 
 Lukasz Fabianski, 26, 26, 0, 1, 0, 1, 1, 0
 Neil Taylor, 26, 26, 0, 6, 0, 1, 2, 0
