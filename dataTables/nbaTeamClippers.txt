@@ -1,7 +1,0 @@
-Clippers
-Name|String, Number|Integer, Position|String
-Luc Moute, 12, PF
-DeAndre Jordan, 6, C
-Paul Pierce, 34, SF
-JJ Redick, 4, SG
-Chris Paul, 3, PG
