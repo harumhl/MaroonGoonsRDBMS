@@ -1,0 +1,14 @@
+newcastle united
+
+Name|String, GamesPlayed|Integer, GamesStarted|Integer, Shots|Integer, ShotsOnGoal|Integer, Assits|Integer, YellowCard|Integer, RedCard|Integer
+
+Fabricio Coloccini, 26, 26, 1, 10, 3, 0, 2, 1
+Georginio Wijnaldum, 26, 26, 9, 44, 23, 3, 1, 0
+Daryl Janmaat, 25, 25, 1, 14, 6, 3, 4, 1
+Moussa Sissoko, 25, 25, 0, 23, 5, 5, 2, 0
+Chancel Mbemba, 24, 24, 0, 10, 1, 0, 3, 0
+Jack Colback, 19, 18, 0, 8, 2, 1, 9, 0
+Rob Elliot, 17, 17, 0, 0, 0, 0, 1, 0
+Aleksandar Mitrovic, 22, 17, 5, 51, 20, 2, 3, 1
+Vurnon Anita, 18, 16, 0, 5, 1, 1, 4, 0
+Alyoze Perez, 23, 16, 5, 35, 11, 2, 2, 0
