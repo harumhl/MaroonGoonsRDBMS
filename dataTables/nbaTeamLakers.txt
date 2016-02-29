@@ -1,7 +1,0 @@
-lakers
-Name|String, Number|Integer, Position|String
-Larry Nance, 7, PF
-Roy Hibbert, 17, C
-Kobe Bryant, 24, SF
-Louis Williams, 23, PG
-Jordan Clarkson, 6, SG
