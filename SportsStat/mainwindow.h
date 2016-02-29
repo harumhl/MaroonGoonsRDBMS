@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "../Engine.h"
 #include "../Player.h"
-#include "createplayer.h"
 #include <vector>
 using namespace std;
 
@@ -28,10 +27,13 @@ public:
 
     // My setters and getters
     void setEngine (Engine* e) { engine = e; }
+    void addPlayer (Player* p) { playerVec.push_back(p); }
     void setRelation (Relation* r) { relation = r; }
+
     Engine* getEngine() { return engine; }
     vector<Player*> getPlayerVec() { return playerVec; }
     Relation* getRelation() { return relation; }
+
 
 private slots:
     void on_ExecuteButton_clicked();

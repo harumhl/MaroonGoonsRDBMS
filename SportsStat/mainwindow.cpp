@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "createplayer.h"
+#include "addleagueteamplayer.h"
 #include "uniondiffprodjoin.h"
 #include "../Player.h"
 #include "displayrelation.h"
@@ -35,9 +35,9 @@ void MainWindow::on_ExecuteButton_clicked()
         displayHelp.exec();
     }
     else if (ui->commandBox->currentText() == "Enter a new league, team, or player") {
-        CreatePlayer createPlayer;
-        createPlayer.setModal(true);
-        createPlayer.exec();
+        AddLeagueTeamPlayer addLeagueTeamPlayer;
+        addLeagueTeamPlayer.setModal(true);
+        addLeagueTeamPlayer.exec();
     }
     else if (ui->commandBox->currentText() == "Select a relation/table") {
         SelectRelation selectRelation;

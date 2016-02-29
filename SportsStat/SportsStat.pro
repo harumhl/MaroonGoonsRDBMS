@@ -14,28 +14,28 @@
 
     SOURCES += main.cpp\
             mainwindow.cpp \
-        createplayer.cpp \
         uniondiffprodjoin.cpp \
         displayrelation.cpp \
         openclosewriteexit.cpp \
     selectrelation.cpp \
     projectrelation.cpp \
-    displayhelp.cpp
+    displayhelp.cpp \
+    addleagueteamplayer.cpp
 
     HEADERS  += mainwindow.h \
-        createplayer.h \
         uniondiffprodjoin.h \
         displayrelation.h \
         openclosewriteexit.h \
     selectrelation.h \
     projectrelation.h \
-    displayhelp.h
+    displayhelp.h \
+    addleagueteamplayer.h
 
     FORMS    += mainwindow.ui \
-        createplayer.ui \
         uniondiffprodjoin.ui \
         displayrelation.ui \
         openclosewriteexit.ui \
     selectrelation.ui \
     projectrelation.ui \
-    displayhelp.ui
+    displayhelp.ui \
+    addleagueteamplayer.ui

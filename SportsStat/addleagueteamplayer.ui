@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CreatePlayer</class>
- <widget class="QDialog" name="CreatePlayer">
+ <class>AddLeagueTeamPlayer</class>
+ <widget class="QDialog" name="AddLeagueTeamPlayer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>240</y>
+     <y>250</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -26,32 +26,29 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-   </property>
-   <property name="centerButtons">
-    <bool>false</bool>
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="title">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>30</x>
      <y>30</y>
-     <width>311</width>
+     <width>251</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Enter a new player</string>
+    <string>Enter a new League, Team, or Player</string>
    </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>70</y>
-     <width>371</width>
-     <height>161</height>
+     <x>30</x>
+     <y>60</y>
+     <width>341</width>
+     <height>171</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -71,12 +68,12 @@
     <attribute name="title">
      <string>Player</string>
     </attribute>
-    <widget class="QLineEdit" name="pPositionE">
+    <widget class="QLineEdit" name="pNameE">
      <property name="geometry">
       <rect>
-       <x>140</x>
-       <y>70</y>
-       <width>211</width>
+       <x>130</x>
+       <y>10</y>
+       <width>181</width>
        <height>21</height>
       </rect>
      </property>
@@ -86,30 +83,43 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>101</width>
+       <width>91</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Player name: </string>
+      <string>Player Name: </string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="pNameE">
+    <widget class="QLabel" name="pAgeL">
      <property name="geometry">
       <rect>
-       <x>140</x>
-       <y>10</y>
-       <width>211</width>
-       <height>21</height>
+       <x>20</x>
+       <y>40</y>
+       <width>91</width>
+       <height>16</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>Player Age: </string>
      </property>
     </widget>
     <widget class="QLineEdit" name="pAgeE">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>130</x>
        <y>40</y>
-       <width>211</width>
+       <width>181</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="pPositionE">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>70</y>
+       <width>181</width>
        <height>21</height>
       </rect>
      </property>
@@ -124,20 +134,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Player position: </string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="pAgeL">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>101</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Player age: </string>
+      <string>Player Position: </string>
      </property>
     </widget>
    </widget>
@@ -148,7 +145,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>CreatePlayer</receiver>
+   <receiver>AddLeagueTeamPlayer</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -164,7 +161,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>CreatePlayer</receiver>
+   <receiver>AddLeagueTeamPlayer</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -6,7 +6,6 @@
 #include "../Tree.cpp"
 #include "../TreeNode.h"
 #include "../Condition.h"
-#include "createteam.h"
 #include "displayrelation.h"
 #include <vector>
 #include <iostream>
