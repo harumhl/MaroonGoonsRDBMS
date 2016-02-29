@@ -16,6 +16,7 @@ DisplayRelation::DisplayRelation(QWidget *parent) :
     if (relation == NULL) {
         if (engine->getNumRelations() > 0)
             MainWindow::instance().setRelation( engine->getRelation(0) );
+        // So relation == NULL and no relations in the engine, it will display an empty table
     }
     else { // relation != NULL
 
