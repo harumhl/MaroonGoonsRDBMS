@@ -33,6 +33,7 @@ class Executer {
     vector<Token> tokens;
     Token token;
     int currentIndex;
+    Relation* tempRelation;
   private:
     Engine* engine;
 
