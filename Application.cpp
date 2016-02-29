@@ -15,7 +15,7 @@ int user_choice = 0;
 
 void Application::mainMenu()
 {
-	cout<< "Main Menu!" << endl;
+	/*cout<< "Main Menu!" << endl;
 	cout << "Menu Options: " << endl;
 	cout << "1) View Leagues" << endl;
 	cout << "2) View Teams in League" << endl;
@@ -30,40 +30,40 @@ void Application::mainMenu()
 
 	if(user_choice == 1) viewLeagues();
 	if(user_choice == 2) viewTeams();
-	if(user_choice == 3) viewPlayers();
+	if(user_choice == 3) viewPlayers();*/
 	/*if(user_choice == 4)
 	if(user_choice == 5)
 	if(user_choice == 6)*/
 }
 
 void Application::viewLeagues(){
-	cout << "Here are all the Leagues:" << endl;
+	//cout << "Here are all the Leagues:" << endl;
 	/*for(int i = 0; i < relations.size(); i++)
 		cout << relations[i] << endl;*/
-	string viewLeagues = "SHOW leagues" << endl;
-	Parser::splitInput(viewLeagues);
+	//string viewLeagues = "SHOW leagues" << endl;
+	//Parser::splitInput(viewLeagues);
 }
 
 void Application::viewTeams(){ 
-	string leagueName;
+	/*string leagueName;
 	cout << "Which League would you like to look at?" << endl;
 	cin >> leagueName;
 	cout << endl;
 
 	string viewTeams = "SHOW " + leagueName;
-	Parser::splitInput(viewTeams);
+	Parser::splitInput(viewTeams);*/
 
 	//Engine::show(leagueName);
 }
 
 void Application::viewPlayers(){
-	string teamName;
+	/*string teamName;
 	cout<< "Which Team would you like to look at?" << endl;
 	cin >> teamName;
 	cout << endl;
 
 	string viewPlayers = "SHOW " + teamName;
-	Parser::splitInput(viewPlayers);
+	Parser::splitInput(viewPlayers);*/
 
 	//Engine::show(teamName);
 }
